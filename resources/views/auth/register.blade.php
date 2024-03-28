@@ -1,4 +1,6 @@
 <x-guest-layout>
+    <h2 class="text-center text-3xl"><a href="{{ url('/') }}">Менеджер задач</a></h2>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
