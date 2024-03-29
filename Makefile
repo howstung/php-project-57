@@ -20,3 +20,6 @@ dev:
 
 test:
 		php artisan test
+
+seed:
+		php artisan db:seed

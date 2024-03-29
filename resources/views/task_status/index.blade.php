@@ -29,7 +29,7 @@
                         <tr>
                             <th scope="row">{{ $status->id }}</th>
                             <td>{{ $status->name }}</td>
-                            <td>{{ $status->created_at->format('d.m.Y') }}</td>
+                            <td>{{ $status->created_at?$status->created_at->format('d.m.Y'):"" }}</td>
                             <td style="min-width: 186px;">
 
                                 <a class="link-danger" style="text-decoration: none; cursor:pointer;"
