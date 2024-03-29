@@ -7,11 +7,13 @@
 
                 @include('flash::message')
 
-                <div>
-                    <a href="{{ route('label.create') }}"
-                       class="btn btn-secondary">
-                        Создать метку </a>
-                </div>
+                @auth
+                    <div>
+                        <a href="{{ route('label.create') }}"
+                           class="btn btn-secondary">
+                            Создать метку </a>
+                    </div>
+                @endauth
 
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -20,7 +22,9 @@
                         <th scope="col">Имя</th>
                         <th scope="col">Описание</th>
                         <th scope="col">Дата создания</th>
-                        <th scope="col">Действия</th>
+                        @auth
+                            <th scope="col">Действия</th>
+                        @endauth
                     </tr>
                     </thead>
                     <tbody>
@@ -32,7 +36,9 @@
                             <td>{{ $label->name }}</td>
                             <td>{{ $label->description }}</td>
                             <td>{{ $label->created_at->format('d.m.Y') }}</td>
-                            <td style="min-width: 186px;">
+
+                            @auth
+                                <td style="min-width: 186px;">
 
                                 <a class="link-danger" style="text-decoration: none; cursor:pointer;"
                                    data-bs-toggle="modal" data-bs-target="#example{{ $label->id }}Modal">
@@ -67,6 +73,7 @@
                                 </a>
 
                             </td>
+                            @endauth
                         </tr>
                     @endforeach
 
