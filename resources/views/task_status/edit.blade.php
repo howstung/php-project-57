@@ -6,10 +6,10 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
 
                 {{ Form::model($status, ['route' => ['status.update', $status], 'method' => 'PATCH']) }}
+
                 @include('task_status.form')
-                <div class="mt-2">
-                    {{ Form::submit('Обновить', ['class' => 'btn btn-secondary mb-3']) }}
-                </div>
+
+                {{ Form::submit('Обновить', ['class' => 'btn btn-secondary mt-3 mb-3']) }}
                 {{ Form::close() }}
 
             </div>
