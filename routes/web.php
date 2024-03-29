@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LabelController;
 use App\Http\Controllers\TaskStatusController;
 
 /*
@@ -40,4 +41,15 @@ Route::resource('task_statuses', TaskStatusController::class)
         'edit' => 'status.edit',
         'update' => 'status.update',
         'destroy' => 'status.destroy',
+    ]);
+
+Route::resource('labels', LabelController::class)
+    ->names([
+        'index' => 'label.index',
+        'create' => 'label.create',
+        'store' => 'label.store',
+        'show' => 'label.show',
+        'edit' => 'label.edit',
+        'update' => 'label.update',
+        'destroy' => 'label.destroy',
     ]);
