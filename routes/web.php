@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,14 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::resource('task_statuses', TaskStatusController::class)
+    ->names([
+        'index' => 'status.index',
+        'create' => 'status.create',
+        'store' => 'status.store',
+        'show' => 'status.show',
+        'edit' => 'status.edit',
+        'update' => 'status.update',
+        'destroy' => 'status.destroy',
+    ]);
