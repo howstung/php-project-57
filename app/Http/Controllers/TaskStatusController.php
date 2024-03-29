@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TaskStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TaskStatusController extends Controller
 {
@@ -19,8 +20,10 @@ class TaskStatusController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        Gate::authorize('auth-for-crud', $request->getUser());
+
         $status = new TaskStatus();
         return view('task_status.create', compact('status'));
     }
@@ -30,6 +33,8 @@ class TaskStatusController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('auth-for-crud', $request->getUser());
+
         $data = $this->validate($request, [
             'name' => 'required|min:1|unique:task_statuses',
         ]);
@@ -55,8 +60,10 @@ class TaskStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
+        Gate::authorize('auth-for-crud', $request->getUser());
+
         $status = TaskStatus::findOrFail($id);
         return view('task_status.edit', compact('status'));
     }
@@ -66,6 +73,8 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        Gate::authorize('auth-for-crud', $request->getUser());
+
         $status = TaskStatus::findOrFail($id);
         $data = $this->validate($request, [
             'name' => 'required|min:1|unique:task_statuses,name,' . $status->id,
@@ -83,8 +92,10 @@ class TaskStatusController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
+        Gate::authorize('auth-for-crud', $request->getUser());
+
         $status = TaskStatus::find($id);
         if ($status) {
             $status->delete();
