@@ -68,7 +68,7 @@ class TaskStatusController extends Controller
     {
         $status = TaskStatus::findOrFail($id);
         $data = $this->validate($request, [
-            'name' => 'required|min:1|unique:task_statuses,name,'.$status->id,
+            'name' => 'required|min:1|unique:task_statuses,name,' . $status->id,
         ]);
 
         $status->fill($data);

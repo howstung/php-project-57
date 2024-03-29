@@ -69,7 +69,7 @@ class LabelController extends Controller
     {
         $label = Label::findOrFail($id);
         $data = $this->validate($request, [
-            'name' => 'required|min:1|unique:labels,name,'.$label->id,
+            'name' => 'required|min:1|unique:labels,name,' . $label->id,
             'description' => 'nullable',
         ]);
 
