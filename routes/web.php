@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LabelController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskStatusController;
 
 /*
@@ -18,7 +19,7 @@ use App\Http\Controllers\TaskStatusController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -52,4 +53,15 @@ Route::resource('labels', LabelController::class)
         'edit' => 'label.edit',
         'update' => 'label.update',
         'destroy' => 'label.destroy',
+    ]);
+
+Route::resource('tasks', TaskController::class)
+    ->names([
+        'index' => 'task.index',
+        'create' => 'task.create',
+        'store' => 'task.store',
+        'show' => 'task.show',
+        'edit' => 'task.edit',
+        'update' => 'task.update',
+        'destroy' => 'task.destroy',
     ]);
