@@ -3,7 +3,7 @@
 @section('content')
             <h1 class="mb-5">Изменение метки</h1>
 
-            <div class="col-xl-3 col-lg-4 col-sm-6">
+            <div class="col-md-6">
 
                 {{ Form::model($label, ['route' => ['label.update', $label], 'method' => 'PATCH']) }}
 

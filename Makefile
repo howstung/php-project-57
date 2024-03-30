@@ -23,3 +23,6 @@ test:
 
 seed:
 		php artisan db:seed
+
+migrate:
+		php artisan migrate

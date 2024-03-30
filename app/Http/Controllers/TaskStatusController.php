@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TaskStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class TaskStatusController extends Controller
@@ -22,7 +23,7 @@ class TaskStatusController extends Controller
      */
     public function create(Request $request)
     {
-        Gate::authorize('auth-for-crud', $request->getUser());
+        Gate::authorize('auth-for-crud', Auth::user());
 
         $status = new TaskStatus();
         return view('task_status.create', compact('status'));
@@ -33,7 +34,7 @@ class TaskStatusController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('auth-for-crud', $request->getUser());
+        Gate::authorize('auth-for-crud', Auth::user());
 
         $data = $this->validate($request, [
             'name' => 'required|min:1|unique:task_statuses',
@@ -62,7 +63,7 @@ class TaskStatusController extends Controller
      */
     public function edit(Request $request, string $id)
     {
-        Gate::authorize('auth-for-crud', $request->getUser());
+        Gate::authorize('auth-for-crud', Auth::user());
 
         $status = TaskStatus::findOrFail($id);
         return view('task_status.edit', compact('status'));
@@ -73,15 +74,14 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Gate::authorize('auth-for-crud', $request->getUser());
+        Gate::authorize('auth-for-crud', Auth::user());
 
         $status = TaskStatus::findOrFail($id);
         $data = $this->validate($request, [
             'name' => 'required|min:1|unique:task_statuses,name,' . $status->id,
         ]);
 
-        $status->fill($data);
-        $status->save();
+        $status->update($data);
 
         flash(__('flash.status.edited'))->success();
 
@@ -94,10 +94,10 @@ class TaskStatusController extends Controller
      */
     public function destroy(Request $request, string $id)
     {
-        Gate::authorize('auth-for-crud', $request->getUser());
+        Gate::authorize('auth-for-crud', Auth::user());
 
         $status = TaskStatus::find($id);
-        if ($status) {
+        if ($status && count($status->tasks) == 0) {
             $status->delete();
             flash(__('flash.status.deleted'))->success();
         } else {

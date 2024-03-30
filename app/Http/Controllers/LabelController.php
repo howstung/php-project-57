@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Label;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class LabelController extends Controller
@@ -22,7 +23,7 @@ class LabelController extends Controller
      */
     public function create(Request $request)
     {
-        Gate::authorize('auth-for-crud', $request->getUser());
+        Gate::authorize('auth-for-crud', Auth::user());
 
         $label = new Label();
         return view('label.create', compact('label'));
@@ -33,7 +34,7 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('auth-for-crud', $request->getUser());
+        Gate::authorize('auth-for-crud', Auth::user());
 
         $data = $this->validate($request, [
             'name' => 'required|min:1|unique:labels',
@@ -63,7 +64,7 @@ class LabelController extends Controller
      */
     public function edit(Request $request, string $id)
     {
-        Gate::authorize('auth-for-crud', $request->getUser());
+        Gate::authorize('auth-for-crud', Auth::user());
 
         $label = Label::findOrFail($id);
         return view('label.edit', compact('label'));
@@ -74,7 +75,7 @@ class LabelController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Gate::authorize('auth-for-crud', $request->getUser());
+        Gate::authorize('auth-for-crud', Auth::user());
 
         $label = Label::findOrFail($id);
         $data = $this->validate($request, [
@@ -96,10 +97,10 @@ class LabelController extends Controller
      */
     public function destroy(Request $request, string $id)
     {
-        Gate::authorize('auth-for-crud', $request->getUser());
+        Gate::authorize('auth-for-crud', Auth::user());
 
         $label = Label::find($id);
-        if ($label) {
+        if ($label && count($label->tasks) == 0) {
             $label->delete();
             flash(__('flash.label.deleted'))->success();
         } else {
