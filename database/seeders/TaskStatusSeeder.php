@@ -18,7 +18,9 @@ class TaskStatusSeeder extends Seeder
             'новый',
             'в работе',
             'на тестировании',
-            'завершен'
+            'завершен',
+
+            'в архиве'
         ];
         foreach ($default_statuses as $status) {
             DB::table('task_statuses')->insert([
