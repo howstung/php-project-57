@@ -11,17 +11,50 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //$tasks = Task::paginate();
-        $tasks = Task::all();
-        return view('task.index', compact('tasks'));
+        $tasks = QueryBuilder::for(Task::class)
+            ->allowedFilters('status_id', 'created_by_id', 'assigned_to_id')
+            ->paginate(5);
+            //->get();
+
+
+        $authors = $executors = $this->makeSelectArray(User::all());
+        $statuses = $this->makeSelectArray(TaskStatus::all());
+
+        $status_selected = $request->get('filter')['status_id'] ?? null;
+        $author_selected = $request->get('filter')['created_by_id'] ?? null;
+        $executor_selected = $request->get('filter')['assigned_to_id'] ?? null;
+
+        $perPage = $tasks->perPage();
+
+        $total = $tasks->total();
+        $lastPage = $tasks->lastPage();
+        $currentPage = $tasks->currentPage() > $lastPage ? 1 : $tasks->currentPage();
+
+
+        //var_dump($tasks);
+
+        return view('task.index', compact(
+            'tasks',
+            'statuses',
+            'authors',
+            'executors',
+            'status_selected',
+            'author_selected',
+            'executor_selected',
+            'perPage',
+            'currentPage',
+            'total',
+            'lastPage'
+        ));
     }
 
     private function makeSelectArray(Collection $collection, string $key = 'id', string $value = 'name'): array
@@ -68,7 +101,7 @@ class TaskController extends Controller
         $task->fill($data);
         $task->created_by_id = Auth::user()->id;
 
-        $labels = array_key_exists('labels', $request->toArray()) ? $request->toArray()['labels'] : [];
+        $labels = $request->toArray()['labels'] ?? [];
         $LabelsObjects = [];
         foreach ($labels as $label) {
             $LabelsObjects[] = Label::findOrFail($label);
@@ -127,7 +160,7 @@ class TaskController extends Controller
 
         $task->update($data);
 
-        $labels = array_key_exists('labels', $request->toArray()) ? $request->toArray()['labels'] : [];
+        $labels = $request->toArray()['labels'] ?? [];
         $LabelsObjects = [];
         foreach ($labels as $label) {
             $LabelsObjects[] = Label::findOrFail($label);

@@ -37,8 +37,13 @@
             a.btn {
                 margin: 20px 0;
             }
+
+            .nav a{
+                color: gray;
+            }
+
             nav a.btn {
-                margin: 0;
+                margin: 0 5px 0 0;
             }
 
             .form-label {
