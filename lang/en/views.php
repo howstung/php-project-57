@@ -4,7 +4,6 @@ return [
 
     'title' => 'Task Manager',
 
-
     'menu' => [
         'items' => [
             'main' => 'Main',
@@ -18,7 +17,6 @@ return [
             'logout' => 'Log Out'
         ]
     ],
-
 
     'pages' => [
         'welcome' => [

@@ -13,35 +13,17 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-/*        User::factory()
-            ->count(6)
-            ->create();*/
+        /*        User::factory()
+                    ->count(6)
+                    ->create();*/
 
         $users = [
-            [
-                'name' => 'James Bond',
-                'email' => 'bond',
-            ],
-            [
-                'name' => 'John Smith',
-                'email' => 'john',
-            ],
-            [
-                'name' => 'Barbara Roo',
-                'email' => 'barbara',
-            ],
-            [
-                'name' => 'Erica Moen',
-                'email' => 'erica',
-            ],
-            [
-                'name' => 'Kevin Sipes',
-                'email' => 'kevin',
-            ],
-            [
-                'name' => 'Bill Gates',
-                'email' => 'bill',
-            ]
+            ['name' => 'James Bond', 'email' => 'bond'],
+            ['name' => 'John Smith', 'email' => 'john'],
+            ['name' => 'Barbara Roo', 'email' => 'barbara'],
+            ['name' => 'Erica Moen', 'email' => 'erica'],
+            ['name' => 'Kevin Sipes', 'email' => 'kevin'],
+            ['name' => 'Bill Gates', 'email' => 'bill']
         ];
 
         foreach ($users as $user) {

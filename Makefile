@@ -7,10 +7,10 @@ validate:
 		composer validate
 
 lint:
-		composer exec --verbose phpcs -- --standard=PSR12 app routes tests
+		composer exec --verbose phpcs -- --standard=PSR12 app routes tests database lang routes
 
 lint-fix:
-		composer exec phpcbf -- --standard=PSR12 -v app routes tests
+		composer exec phpcbf -- --standard=PSR12 -v app routes tests database lang routes
 
 start:
 		php artisan serve --host=0.0.0.0 --port=${PORT}
