@@ -17,6 +17,8 @@ jobs:
         env:
           MYSQL_USER: laravel
           MYSQL_PASSWORD: laravel
+          MYSQL_DATABASE: laravel
+          MYSQL_ROOT_PASSWORD: password
         # Set health checks to wait until mysql has started
         options: >-
           --health-cmd "mysqladmin ping"
