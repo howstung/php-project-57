@@ -21,11 +21,12 @@ jobs:
           MYSQL_USER: laravel
           MYSQL_PASSWORD: laravel
         # Set health checks to wait until mysql has started
-        options: >-
-          --health-cmd mysqladmin ping
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        healthcheck:
+          test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+          start_period: 5s
+          interval: 10s
+          timeout: 5s
+          retries: 5
         ports:
           # Maps tcp port 3306 on service container to the host
           - 3306:3306
