@@ -8,20 +8,34 @@ on: push
 jobs:
   check:
     runs-on: ubuntu-22.04
+    env:
+      MYSQL_HOST: localhost
+      MYSQL_PORT: 3306
+    services:
+      # Label used to access the service container
+      mysql:
+        # Docker Hub image
+        image: mysql
+        # Provide the password for mysql
+        env:
+          MYSQL_USER: laravel
+          MYSQL_PASSWORD: laravel
+        # Set health checks to wait until mysql has started
+        options: >-
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 3306 on service container to the host
+          - 3306:3306
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install PHP
+      - name: Setup PHP
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "8.2"
 
-      - name: Install requirements
-        run: make install
-
-      - name: Run linter
-        run: make lint
-
-      - name: Run tests
-        run: make test
+      - name: Linter and Tests
+        run: make github_actions
