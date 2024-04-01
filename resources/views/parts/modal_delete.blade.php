@@ -1,6 +1,7 @@
-<a class="link-danger" style="text-decoration: none; cursor:pointer;"
+<a class="link-danger"
+   style="text-decoration: none; cursor:pointer; display: inline-block; min-width: 96px"
    data-bs-toggle="modal" data-bs-target="#example{{ $modal_id }}Modal">
-    <i class="bi bi-trash-fill"></i>{{ $buttonTitle }}
+    <i class="bi bi-trash-fill"></i> {{ $buttonTitle }}
 </a>
 
 <!-- Modal -->

@@ -38,7 +38,7 @@
                             <td>{{ $label->created_at->format('d.m.Y') }}</td>
 
                             @auth
-                                <td style="min-width: 186px;">
+                                <td>
 
                                 @include('parts.input_edit', ['title' => __('views.label.pages.index.edit'),'route' => route('label.edit', $label->id)])
 

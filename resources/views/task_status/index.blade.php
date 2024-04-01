@@ -36,7 +36,7 @@
                             <td>{{ $status->created_at?$status->created_at->format('d.m.Y'):"" }}</td>
 
                             @auth
-                                <td style="min-width: 186px;">
+                                <td>
 
                                 @include('parts.input_edit', ['title' => __('views.task_status.pages.index.edit'),'route' => route('status.edit', $status->id)]
 )
