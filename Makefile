@@ -34,7 +34,7 @@ github_actions:
 		php artisan key:gen
 		sudo service mysql start
 		php artisan migrate
-		#php artisan db:seed
+		php artisan db:seed
 		npm ci
 		npm run build
 		composer exec --verbose phpcs -- --standard=PSR12 app routes tests
