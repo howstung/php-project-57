@@ -45,7 +45,7 @@ class LabelController extends Controller
         $label->fill($data);
         $label->save();
 
-        flash(__('flash.label.created'))->success();
+        flash(__('views.label.flash.store'))->success();
 
         return redirect()
             ->route('label.index');
@@ -86,7 +86,7 @@ class LabelController extends Controller
         $label->fill($data);
         $label->save();
 
-        flash(__('flash.label.edited'))->success();
+        flash(__('views.label.flash.update'))->success();
 
         return redirect()
             ->route('label.index');
@@ -102,9 +102,9 @@ class LabelController extends Controller
         $label = Label::find($id);
         if ($label && count($label->tasks) == 0) {
             $label->delete();
-            flash(__('flash.label.deleted'))->success();
+            flash(__('views.label.flash.destroy.success'))->success();
         } else {
-            flash(__('flash.label.not_deleted'))->error();
+            flash(__('views.label.flash.destroy.fail'))->error();
         }
         return redirect()->route('label.index');
     }

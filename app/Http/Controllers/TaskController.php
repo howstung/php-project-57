@@ -110,7 +110,7 @@ class TaskController extends Controller
         $task->save();
         $task->labels()->saveMany($LabelsObjects);
 
-        flash(__('flash.task.created'))->success();
+        flash(__('views.task.flash.store'))->success();
 
         return redirect()
             ->route('task.index');
@@ -168,7 +168,7 @@ class TaskController extends Controller
         DB::table('label_task')->where('task_id', '=', $task->id)->delete();
         $task->labels()->saveMany($LabelsObjects);
 
-        flash(__('flash.task.edited'))->success();
+        flash(__('views.task.flash.update'))->success();
 
         return redirect()
             ->route('task.index');
@@ -185,9 +185,9 @@ class TaskController extends Controller
 
         if ($task && $task->author->id === Auth::user()->id) {
             $task->delete();
-            flash(__('flash.task.deleted'))->success();
+            flash(__('views.task.flash.success'))->success();
         } else {
-            flash(__('flash.task.not_deleted'))->error();
+            flash(__('views.task.flash.fail'))->error();
         }
         return redirect()->route('status.index');
     }

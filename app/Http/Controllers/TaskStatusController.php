@@ -44,7 +44,7 @@ class TaskStatusController extends Controller
         $status->fill($data);
         $status->save();
 
-        flash(__('flash.status.created'))->success();
+        flash(__('views.task_status.flash.store'))->success();
 
         return redirect()
             ->route('status.index');
@@ -83,7 +83,7 @@ class TaskStatusController extends Controller
 
         $status->update($data);
 
-        flash(__('flash.status.edited'))->success();
+        flash(__('views.task_status.flash.update'))->success();
 
         return redirect()
             ->route('status.index');
@@ -99,9 +99,9 @@ class TaskStatusController extends Controller
         $status = TaskStatus::find($id);
         if ($status && count($status->tasks) == 0) {
             $status->delete();
-            flash(__('flash.status.deleted'))->success();
+            flash(__('views.task_status.flash.destroy.success'))->success();
         } else {
-            flash(__('flash.status.not_deleted'))->error();
+            flash(__('views.task_status.flash.destroy.fail'))->error();
         }
         return redirect()->route('status.index');
     }

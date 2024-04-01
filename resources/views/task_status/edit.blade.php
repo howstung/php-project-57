@@ -1,16 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-            <h1 class="mb-5">Изменение статуса</h1>
 
-            <div class="col-md-6">
+    @include('parts.form_wrapper_create_edit', [
+        'h1' => __('views.task_status.pages.edit.title'),
+        'model' => $status,
+        'route' => ['route' => ['status.update', $status], 'method' => 'PATCH'],
+        'includeForm' => 'task_status.form',
+        'submit'=> __('views.task_status.pages.edit.submit')
+    ])
 
-                {{ Form::model($status, ['route' => ['status.update', $status], 'method' => 'PATCH']) }}
-
-                @include('task_status.form')
-
-                {{ Form::submit('Обновить', ['class' => 'btn btn-secondary mt-3 mb-3']) }}
-                {{ Form::close() }}
-
-            </div>
 @endsection

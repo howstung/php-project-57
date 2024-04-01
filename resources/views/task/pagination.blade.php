@@ -2,7 +2,7 @@
     <nav aria-label="Pagination of tasks">
         <ul class="pagination">
 
-            <li class="page-item {{ $currentPage - 1 <= 0 ? 'disabled' : null }}">
+            <li class="page-item @disabled($currentPage - 1 <= 0) ">
                 <a class="page-link" href="{{ route('task.index', ['page'=> $currentPage - 1]) }}"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
@@ -28,31 +28,30 @@
                 </li>
             @endif
 
-            <li class="page-item {{ $currentPage >= $lastPage ? 'disabled' : null }}">
+            <li class="page-item @disabled($currentPage >= $lastPage) ">
                 <a class="page-link" href="{{ route('task.index', ['page'=> $currentPage + 1]) }}"
                    aria-label="Previous">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
+
         </ul>
     </nav>
 
     <div>
         <p class="text-sm text-gray-700 leading-5">
-            Показаны
+            {{ __('views.task.pagination.showing') }}
             @if(count($tasks) == 0)
                 0
             @else
-                с
+                {{ __('views.task.pagination.from') }}
                 <span class="font-medium">{{ ($currentPage-1) * $perPage + 1 }}</span>
-                по
+                {{ __('views.task.pagination.to') }}
                 <span class="font-medium">{{ min($total, ($currentPage-1) * $perPage +  $perPage) }}</span>
             @endif
 
-            из
+            {{ __('views.task.pagination.of') }}
             <span class="font-medium">{{ $total }}</span>
-
-
         </p>
     </div>
 

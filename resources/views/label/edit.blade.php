@@ -1,16 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-            <h1 class="mb-5">Изменение метки</h1>
 
-            <div class="col-md-6">
+    @include('parts.form_wrapper_create_edit', [
+        'h1' => __('views.label.pages.edit.title'),
+        'model' => $label,
+        'route' => ['route' => ['label.update', $label], 'method' => 'PATCH'],
+        'includeForm' => 'label.form',
+        'submit'=> __('views.label.pages.edit.submit')
+    ])
 
-                {{ Form::model($label, ['route' => ['label.update', $label], 'method' => 'PATCH']) }}
-
-                @include('label.form')
-
-                {{ Form::submit('Обновить', ['class' => 'btn btn-secondary mt-3 mb-3']) }}
-                {{ Form::close() }}
-
-            </div>
 @endsection

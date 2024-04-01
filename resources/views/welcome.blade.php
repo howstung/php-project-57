@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Проект на PHP для Хекслета!</h1>
-        <p>Это простой менеджер задач на Laravel</p>
+        <h1>{{ __('views.pages.welcome.h1') }}</h1>
+        <p>{{ __('views.pages.welcome.p') }}</p>
     </div>
 @endsection
