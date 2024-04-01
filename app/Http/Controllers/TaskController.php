@@ -185,10 +185,10 @@ class TaskController extends Controller
 
         if ($task && $task->author->id === Auth::user()->id) {
             $task->delete();
-            flash(__('views.task.flash.success'))->success();
+            flash(__('views.task.flash.destroy.success'))->success();
         } else {
-            flash(__('views.task.flash.fail'))->error();
+            flash(__('views.task.flash.destroy.fail'))->error();
         }
-        return redirect()->route('status.index');
+        return redirect()->route('task.index');
     }
 }
