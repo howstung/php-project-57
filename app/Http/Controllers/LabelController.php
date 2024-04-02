@@ -4,11 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Label;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class LabelController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Label::class);
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'name' => 'required|max:255|unique:labels',
+            'description' => 'nullable'
+        ];
+    }
+
+    protected function messages(): array
+    {
+        return [
+            'name.required' => __('validation.required'),
+            'name.unique' => __('validation.unique', ['model' => __('views.label.name')]),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -18,28 +37,15 @@ class LabelController extends Controller
         return view('label.index', compact('labels'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    public function create()
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
         $label = new Label();
         return view('label.create', compact('label'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $data = $this->validate($request, [
-            'name' => 'required|min:1|unique:labels',
-            'description' => 'nullable',
-        ]);
+        $data = $this->getValidatedData($request);
 
         $label = new Label();
         $label->fill($data);
@@ -47,60 +53,26 @@ class LabelController extends Controller
 
         flash(__('views.label.flash.store'))->success();
 
-        return redirect()
-            ->route('label.index');
+        return redirect()->route('label.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    /*    public function show(string $id)
-        {
 
-        }*/
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request, string $id)
+    public function edit(Label $label)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $label = Label::findOrFail($id);
         return view('label.edit', compact('label'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Label $label)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $label = Label::findOrFail($id);
-        $data = $this->validate($request, [
-            'name' => 'required|min:1|unique:labels,name,' . $label->id,
-            'description' => 'nullable',
-        ]);
-
-        $label->fill($data);
-        $label->save();
-
+        $data = $this->getValidatedData($request, $label);
+        $label->update($data);
         flash(__('views.label.flash.update'))->success();
-
-        return redirect()
-            ->route('label.index');
+        return redirect()->route('label.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request, string $id)
+    public function destroy(Label $label)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $label = Label::find($id);
-        if ($label && count($label->tasks) == 0) {
+        if (count($label->tasks) == 0) {
             $label->delete();
             flash(__('views.label.flash.destroy.success'))->success();
         } else {

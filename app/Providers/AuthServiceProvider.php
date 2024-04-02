@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
-use App\Models\User;
+// use Illuminate\Support\Facades\Gate;
+use App\Models\Label;
+use App\Models\Task;
+use App\Models\TaskStatus;
+use App\Policies\BasePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -14,7 +17,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Label::class => BasePolicy::class,
+        TaskStatus::class => BasePolicy::class,
+        Task::class => BasePolicy::class,
     ];
 
     /**
@@ -22,8 +27,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('auth-for-crud', function (User $user) {
-            return $user->id !== null;
-        });
+        //
     }
 }

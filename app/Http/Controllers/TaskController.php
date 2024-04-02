@@ -10,20 +10,62 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->authorizeResource(Task::class);
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'name' => 'required|unique:tasks',
+            'description' => 'nullable',
+            'status_id' => 'required',
+            'assigned_to_id' => 'nullable',
+        ];
+    }
+
+    protected function messages(): array
+    {
+        return [
+            'name.required' => __('validation.required'),
+            'name.unique' => __('validation.unique', ['model' => __('views.task.name')]),
+            'status_id.required' => __('validation.required'),
+        ];
+    }
+
+    private function makeSelectArray(Collection $collection, string $key = 'id', string $value = 'name'): array
+    {
+        $array = $collection->toArray();
+        $select = [];
+        foreach ($array as $item) {
+            $select[$item[$key]] = $item[$value];
+        }
+        return $select;
+    }
+    private function saveLabels($request, $task, $action = 'save')
+    {
+        $labels = $request->toArray()['labels'] ?? [];
+        $LabelsObjects = [];
+        foreach ($labels as $label) {
+            $LabelsObjects[] = Label::findOrFail($label);
+        }
+        if ($action === 'update') {
+            DB::table('label_task')->where('task_id', '=', $task->id)->delete();
+        }
+        $task->labels()->saveMany($LabelsObjects);
+    }
+
     public function index(Request $request)
     {
         $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters('status_id', 'created_by_id', 'assigned_to_id')
             ->paginate(5);
-            //->get();
+        //->get();
 
 
         $authors = $executors = $this->makeSelectArray(User::all());
@@ -40,8 +82,6 @@ class TaskController extends Controller
         $currentPage = $tasks->currentPage() > $lastPage ? 1 : $tasks->currentPage();
 
 
-        //var_dump($tasks);
-
         return view('task.index', compact(
             'tasks',
             'statuses',
@@ -57,23 +97,9 @@ class TaskController extends Controller
         ));
     }
 
-    private function makeSelectArray(Collection $collection, string $key = 'id', string $value = 'name'): array
-    {
-        $array = $collection->toArray();
-        $select = [];
-        foreach ($array as $item) {
-            $select[$item[$key]] = $item[$value];
-        }
-        return $select;
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    public function create()
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
         $task = new Task();
 
         $users = $this->makeSelectArray(User::all());
@@ -83,58 +109,30 @@ class TaskController extends Controller
         return view('task.create', compact('task', 'users', 'statuses', 'labels'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $data = $this->validate($request, [
-            'name' => 'required|min:1|unique:tasks',
-            'description' => 'nullable',
-            'status_id' => 'required',
-            'assigned_to_id' => 'nullable',
-        ]);
+        $data = $this->getValidatedData($request);
 
         $task = new Task();
         $task->fill($data);
         $task->created_by_id = Auth::user()->id;
-
-        $labels = $request->toArray()['labels'] ?? [];
-        $LabelsObjects = [];
-        foreach ($labels as $label) {
-            $LabelsObjects[] = Label::findOrFail($label);
-        }
-
         $task->save();
-        $task->labels()->saveMany($LabelsObjects);
 
+        $this->saveLabels($request, $task);
         flash(__('views.task.flash.store'))->success();
 
-        return redirect()
-            ->route('task.index');
+        return redirect()->route('task.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Request $request, string $id)
+    public function show(Task $task)
     {
-        $task = Task::findOrFail($id);
         $labels = $task->labels();
         return view('task.show', compact('task', 'labels'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request, string $id)
+    public function edit(Task $task)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $task = Task::findOrFail($id);
-
         $users = $this->makeSelectArray(User::all());
         $statuses = $this->makeSelectArray(TaskStatus::all());
         $labels = $this->makeSelectArray(Label::all());
@@ -142,48 +140,20 @@ class TaskController extends Controller
         return view('task.edit', compact('task', 'users', 'statuses', 'labels'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Task $task)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $task = Task::findOrFail($id);
-
-        $data = $this->validate($request, [
-            'name' => 'required|min:1|unique:tasks,name,' . $task->id,
-            'description' => 'nullable',
-            'status_id' => 'required',
-            'assigned_to_id' => 'nullable',
-        ]);
-
+        $data = $this->getValidatedData($request, $task);
         $task->update($data);
-
-        $labels = $request->toArray()['labels'] ?? [];
-        $LabelsObjects = [];
-        foreach ($labels as $label) {
-            $LabelsObjects[] = Label::findOrFail($label);
-        }
-        DB::table('label_task')->where('task_id', '=', $task->id)->delete();
-        $task->labels()->saveMany($LabelsObjects);
+        $this->saveLabels($request, $task, 'update');
 
         flash(__('views.task.flash.update'))->success();
 
-        return redirect()
-            ->route('task.index');
+        return redirect()->route('task.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request, string $id)
+    public function destroy(Task $task)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $task = Task::find($id);
-
-        if ($task && $task->author->id === Auth::user()->id) {
+        if ($task->author->id === Auth::user()->id) {
             $task->delete();
             flash(__('views.task.flash.destroy.success'))->success();
         } else {

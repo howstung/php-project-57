@@ -4,101 +4,72 @@ namespace App\Http\Controllers;
 
 use App\Models\TaskStatus;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class TaskStatusController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->authorizeResource(TaskStatus::class);
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'name' => 'required|max:255|unique:task_statuses',
+        ];
+    }
+
+    protected function messages(): array
+    {
+        return [
+            'name.required' => __('validation.required'),
+            'name.unique' => __('validation.unique', ['model' => __('views.task_status.name')]),
+        ];
+    }
+
     public function index()
     {
         $statuses = TaskStatus::all();
         return view('task_status.index', compact('statuses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    public function create()
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
         $status = new TaskStatus();
         return view('task_status.create', compact('status'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
+        $data = $this->getValidatedData($request);
 
-        $data = $this->validate($request, [
-            'name' => 'required|min:1|unique:task_statuses',
-        ]);
-
-        $status = new TaskStatus();
-        $status->fill($data);
-        $status->save();
+        $task_status = new TaskStatus();
+        $task_status->fill($data);
+        $task_status->save();
 
         flash(__('views.task_status.flash.store'))->success();
 
-        return redirect()
-            ->route('status.index');
+        return redirect()->route('status.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    /*    public function show(string $id)
-        {
-
-        }*/
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request, string $id)
+    public function edit(TaskStatus $task_status)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $status = TaskStatus::findOrFail($id);
+        $status = $task_status;
         return view('task_status.edit', compact('status'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, TaskStatus $task_status)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $status = TaskStatus::findOrFail($id);
-        $data = $this->validate($request, [
-            'name' => 'required|min:1|unique:task_statuses,name,' . $status->id,
-        ]);
-
-        $status->update($data);
-
+        $data = $this->getValidatedData($request, $task_status);
+        $task_status->update($data);
         flash(__('views.task_status.flash.update'))->success();
-
-        return redirect()
-            ->route('status.index');
+        return redirect()->route('status.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request, string $id)
+    public function destroy(TaskStatus $task_status)
     {
-        Gate::authorize('auth-for-crud', Auth::user());
-
-        $status = TaskStatus::find($id);
-        if ($status && count($status->tasks) == 0) {
-            $status->delete();
+        if (count($task_status->tasks) == 0) {
+            $task_status->delete();
             flash(__('views.task_status.flash.destroy.success'))->success();
         } else {
             flash(__('views.task_status.flash.destroy.fail'))->error();
