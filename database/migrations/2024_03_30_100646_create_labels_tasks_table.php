@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('label_id')->references('id')->on('labels');
 
             $table->unsignedBigInteger('task_id');
-            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
 
             $table->timestamps();
         });
