@@ -28,13 +28,12 @@ migrate:
 		php artisan migrate
 
 github_actions:
+		php --version
 		composer validate
 		composer install
 		cp .env.ci .env
 		php artisan key:gen
-		sudo service mysql start
-		php artisan migrate
-		php artisan db:seed
+		php artisan migrate:fresh
 		npm ci
 		npm run build
 		composer exec --verbose phpcs -- --standard=PSR12 app routes tests

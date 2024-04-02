@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('label_id')->references('id')->on('labels');
 
             $table->unsignedBigInteger('task_id');
-            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
+            $table->foreign('task_id')->references('id')->on('tasks');
 
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('labels_tasks');
+        Schema::dropIfExists('label_task');
     }
 };
