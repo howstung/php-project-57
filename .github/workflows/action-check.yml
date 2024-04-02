@@ -15,9 +15,10 @@ jobs:
         image: mysql:latest
         # Provide the password for mysql
         env:
+          DB_HOST: localhost
+          MYSQL_DATABASE: laravel
           MYSQL_USER: laravel
           MYSQL_PASSWORD: laravel
-          MYSQL_DATABASE: laravel
           MYSQL_ROOT_PASSWORD: laravel
         # Set health checks to wait until mysql has started
         options: >-
