@@ -14,7 +14,7 @@ return [
         ],
         'profile' => [
             'login' => 'Войти',
-            'register' => 'Регистрация',
+            'register' => 'Зарегистрировать',
             'profile' => 'Профиль',
             'logout' => 'Выход'
         ]
