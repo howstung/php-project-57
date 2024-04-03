@@ -32,7 +32,7 @@ return [
         'confirm_password' => 'Подтверждение',
         'already_registered' => 'Уже зарегистрированы?',
         'register' => 'Зарегистрировать',
-        'reset_password' => 'Reset Password'
+        'reset_password' => 'Сбросить пароль'
     ],
 
     'forgot' => 'Забыли пароль? Без проблем. Просто сообщите нам свой адрес электронной почты,

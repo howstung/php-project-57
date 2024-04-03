@@ -13,10 +13,11 @@ class Controller extends BaseController
     use AuthorizesRequests;
     use ValidatesRequests;
 
-    private function getRules(?Model $model, array $rules, array $fields): array
+    private function getRules(?Model $model): array
     {
+        $rules = $this->rules();
         foreach ($rules as $field => $rule) {
-            if (in_array($field, $fields)) {
+            if (in_array($field, $this->uniqueFields())) {
                 $unique = '';
                 if (!is_null($model)) {
                     $unique = ",$field," . $model->id;
@@ -26,7 +27,6 @@ class Controller extends BaseController
         }
         return $rules;
     }
-
     protected function uniqueFields(): array
     {
         return [
@@ -38,12 +38,11 @@ class Controller extends BaseController
     {
         return [];
     }
-
     protected function getValidatedData(Request $request, Model $model = null)
     {
         return $this->validate(
             $request,
-            $this->getRules($model, $this->rules(), $this->uniqueFields()),
+            $this->getRules($model),
             $this->messages()
         );
     }

@@ -72,11 +72,11 @@ class LabelController extends Controller
 
     public function destroy(Label $label)
     {
-        if (count($label->tasks) == 0) {
+        if (count($label->tasks) > 0) {
+            flash(__('views.label.flash.destroy.fail'))->error();
+        } else {
             $label->delete();
             flash(__('views.label.flash.destroy.success'))->success();
-        } else {
-            flash(__('views.label.flash.destroy.fail'))->error();
         }
         return redirect()->route('label.index');
     }

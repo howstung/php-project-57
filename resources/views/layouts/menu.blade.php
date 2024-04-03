@@ -68,7 +68,11 @@
                     {{--<a href="{{ url('/dashboard') }}" class="btn btn-outline-secondary">Dashboard</a>--}}
 
                     {{ Form::model(null, ['route' => ['logout'], 'method' => 'POST']) }}
-                        <x-b.input-submit name="{{ __('views.menu.profile.logout') }}" class="btn btn-outline-secondary"/>
+                        {{--<x-b.input-submit name="{{ __('views.menu.profile.logout') }}" class="btn btn-outline-secondary"/>--}}
+                        <a href="{{ route('logout') }}" class="btn btn-outline-secondary"
+                           onclick="event.preventDefault(); this.closest('form').submit()">
+                            {{ __('views.menu.profile.logout') }}
+                        </a>
                     {{ Form::close() }}
 
                 @else
