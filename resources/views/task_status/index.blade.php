@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
             <div class="container">
 
                 <h1>{{ __('views.task_status.pages.index.title') }}</h1>
@@ -33,7 +31,7 @@
                         <tr>
                             <th scope="row">{{ $status->id }}</th>
                             <td>{{ $status->name }}</td>
-                            <td>{{ $status->created_at?$status->created_at->format('d.m.Y'):"" }}</td>
+                            <td>{{ $status->getCreatedAt() }}</td>
 
                             @auth
                                 <td>
@@ -62,4 +60,4 @@
                     </tbody>
                 </table>
             </div>
-@endsection
+</x-app-layout>

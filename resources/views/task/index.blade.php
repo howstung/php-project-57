@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
     <div class="container">
 
         <h1>{{ __('views.task.pages.index.title') }}</h1>
@@ -41,9 +39,9 @@
                     <td>{{ $task->status->name }}</td>
                     <td><a href="{{ route('task.show', $task->id) }}"
                            style="text-decoration: none">{{ $task->name }}</a></td>
-                    <td>{{ $task->author->name }}</td>
-                    <td>{{ $task->executor->name }}</td>
-                    <td>{{ $task->created_at?$task->created_at->format('d.m.Y'):"" }}</td>
+                    <td>{{ $task->author->name ?? null }}</td>
+                    <td>{{ $task->executor->name ?? null }}</td>
+                    <td>{{ $task->getCreatedAt() }}</td>
 
                     @auth
                         <td style="min-width: 100px;">
@@ -82,4 +80,4 @@
         @include('task.pagination')
 
     </div>
-@endsection
+</x-app-layout>

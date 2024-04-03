@@ -1,7 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
-
+<x-app-layout>
     <h3 class="mb-5">{{ __('views.task.pages.show.title') }}
 
         @auth
@@ -38,5 +35,4 @@
             </ul>
         </div>
     </div>
-
-@endsection
+</x-app-layout>

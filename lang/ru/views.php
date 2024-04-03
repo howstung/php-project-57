@@ -15,6 +15,7 @@ return [
         'profile' => [
             'login' => 'Вход',
             'register' => 'Регистрация',
+            'profile' => 'Профиль',
             'logout' => 'Выход'
         ]
     ],
@@ -29,6 +30,7 @@ return [
 
 
     'label' => [
+        'name' => 'Метка',
         'table' => [
             'id' => '#',
             'name' => 'Имя',
@@ -70,6 +72,7 @@ return [
 
 
     'task_status' => [
+        'name' => 'Статус',
         'table' => [
             'id' => '#',
             'name' => 'Имя',
@@ -108,8 +111,8 @@ return [
         ]
     ],
 
-
     'task' => [
+        'name' => 'Задача',
         'table' => [
             'id' => '#',
             'description' => 'Описание',
@@ -125,7 +128,7 @@ return [
             'submit' => 'Применить'
         ],
         'pagination' => [
-            'showing' => 'Показаны',
+            'showing' => 'Показаны результаты',
             'from' => 'с',
             'to' => 'по',
             'of' => 'из',

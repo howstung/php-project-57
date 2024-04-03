@@ -25,7 +25,7 @@
                 </button>
 
                 {{ Form::model($form['model'], $form['route']) }}
-                {{ Form::submit($modalOK, ['class' => 'btn btn-success']) }}
+                    <x-b.input-submit name="{{$modalOK}}" class="btn btn-success"/>
                 {{ Form::close() }}
 
             </div>

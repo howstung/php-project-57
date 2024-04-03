@@ -1,13 +1,9 @@
-@extends('layouts.app')
-
-@section('content')
-
-    @include('parts.form_wrapper_create_edit', [
+<x-app-layout>
+    @include('parts.form_wrapper', [
         'h1' => __('views.task.pages.edit.title'),
         'model' => $task,
         'route' => ['route' => ['task.update', $task], 'method' => 'PATCH'],
         'includeForm' => 'task.form',
         'submit'=> __('views.task.pages.edit.submit')
     ])
-
-@endsection
+</x-app-layout>

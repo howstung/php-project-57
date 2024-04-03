@@ -10,6 +10,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                 <ul class="navbar-nav me-auto mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('welcome')?'active':null }}" aria-current="page" href="{{ route('welcome') }}">{{ __('views.menu.items.main') }}</a>
@@ -28,10 +29,14 @@
 
                 @auth
 
-                    <style>
+                    <!-- Simple -->
+{{--                    <div style="color: gray; margin-right: 10px; cursor: inherit; "
+                      role="button">
+                        <img style="width: 40px"
+                             src="{{ url('/') }}/img/user_default.png" class="avatar" alt="Avatar"> {{ Auth::user()->name }}
+                    </div>--}}
 
-                    </style>
-                    <ul class="nav">
+                    <ul class="nav" style="margin-right: 20px;">
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" style="text-decoration: none;"
                                href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,32 +45,31 @@
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-    {{--                            <li><a href="#" class="dropdown-item"><i class="bi bi-person-fill"></i> Profile</a></li>
-                                <li><a href="#" class="dropdown-item"><i class="bi bi-calendar-check"></i> Calendar</a></li>
+                               <li><a href="{{ route('profile.edit') }}" class="dropdown-item"><i class="bi bi-person-fill"></i>
+                                   {{ __('views.menu.profile.profile') }}</a></li>
+
+                                {{--<li><a href="#" class="dropdown-item"><i class="bi bi-calendar-check"></i> Calendar</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a href="#" class="dropdown-item"><i class="bi bi-gear"></i> Settings</a></li>
                                 <li><hr class="dropdown-divider"></li>--}}
 
-                                <form method="POST" action="{{ route('logout') }}">
+{{--                                <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="dropdown-item">
+                                    <button type="submit" class="dropdown-item btn btn-outline-secondary">
                                         <i class="bi bi-box-arrow-right"></i> {{ __('views.menu.profile.logout') }}
                                     </button>
-                                </form>
+                                </form>--}}
 
                                 {{--<a href="#" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Выход</a>--}}
                             </ul>
                         </li>
                     </ul>
 
-
                     {{--<a href="{{ url('/dashboard') }}" class="btn btn-outline-secondary">Dashboard</a>--}}
-{{--                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-secondary">
-                            {{ __('Выход') }}
-                        </button>
-                    </form>--}}
+
+                    {{ Form::model(null, ['route' => ['logout'], 'method' => 'POST']) }}
+                        <x-b.input-submit name="{{ __('views.menu.profile.logout') }}" class="btn btn-outline-secondary"/>
+                    {{ Form::close() }}
 
                 @else
                     <a class="btn btn-outline-secondary" href="{{ route('login') }}">{{ __('views.menu.profile.login') }}</a>

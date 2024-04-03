@@ -4,6 +4,7 @@ return [
 
     'title' => 'Task Manager',
 
+
     'menu' => [
         'items' => [
             'main' => 'Main',
@@ -12,9 +13,10 @@ return [
             'labels' => 'Labels'
         ],
         'profile' => [
-            'login' => 'Log In',
+            'login' => 'Login',
             'register' => 'Register',
-            'logout' => 'Log Out'
+            'profile' => 'Profile',
+            'logout' => 'Logout'
         ]
     ],
 
@@ -27,6 +29,7 @@ return [
 
 
     'label' => [
+        'name' => 'Label',
         'table' => [
             'id' => '#',
             'name' => 'Name',
@@ -68,6 +71,7 @@ return [
 
 
     'task_status' => [
+        'name' => 'Status',
         'table' => [
             'id' => '#',
             'name' => 'Name',
@@ -108,6 +112,7 @@ return [
 
 
     'task' => [
+        'name' => 'Task',
         'table' => [
             'id' => '#',
             'description' => 'Description',
@@ -123,7 +128,7 @@ return [
             'submit' => 'Apply'
         ],
         'pagination' => [
-            'showing' => 'Showing',
+            'showing' => 'Showing results',
             'from' => 'from',
             'to' => 'to',
             'of' => 'of',

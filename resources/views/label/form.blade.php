@@ -1,7 +1,4 @@
-@include('parts.form_errors')
+<x-b.input-text name="name" label="{{ __('views.label.table.name') }}" />
 
-{{ Form::label('name', __('views.label.table.name'), ['class'=>'form-label']) }}
-{{ Form::text('name',  null, ['class' => 'form-control']) }}
+<x-b.input-textarea name="description" label="{{ __('views.label.table.description') }}" />
 
-{{ Form::label('description', __('views.label.table.description'), ['class'=>'form-label']) }}
-{{ Form::textarea('description',  null, ['class' => 'form-control']) }}

@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
             <div class="container">
 
                 <h1>{{ __('views.label.pages.index.title') }}</h1>
@@ -35,7 +33,7 @@
                             <th scope="row">{{ $label->id }}</th>
                             <td>{{ $label->name }}</td>
                             <td>{{ $label->description }}</td>
-                            <td>{{ $label->created_at->format('d.m.Y') }}</td>
+                            <td>{{ $label->getCreatedAt() }}</td>
 
                             @auth
                                 <td>
@@ -64,4 +62,4 @@
                     </tbody>
                 </table>
             </div>
-@endsection
+</x-app-layout>
