@@ -13,7 +13,7 @@ return [
             'labels' => 'Метки'
         ],
         'profile' => [
-            'login' => 'Вход',
+            'login' => 'Войти',
             'register' => 'Регистрация',
             'profile' => 'Профиль',
             'logout' => 'Выход'
