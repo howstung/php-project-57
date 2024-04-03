@@ -3,13 +3,13 @@
 namespace Crud;
 
 use App\Models\Label;
+use App\Models\Task;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class LabelControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     protected function setUp(): void
     {
@@ -17,6 +17,7 @@ class LabelControllerTest extends TestCase
 
         $this->user = User::factory()->create();
         $this->label = Label::factory()->create();
+        $this->task = Task::factory()->create();
     }
 
     public function testIndex(): void
@@ -38,7 +39,7 @@ class LabelControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testStore()
+    public function testStore(): void
     {
         $this->actingAs($this->user);
         $response = $this->post(route('label.store'), $this->label->toArray());
@@ -46,7 +47,7 @@ class LabelControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testStoreNotAllowedForGuest()
+    public function testStoreNotAllowedForGuest(): void
     {
         $hadBeenCount = Label::count();
         $response = $this->post(route('label.store'), $this->label->toArray());
@@ -55,20 +56,20 @@ class LabelControllerTest extends TestCase
         $this->assertEquals($hadBeenCount, $becameCount);
     }
 
-    public function testEdit()
+    public function testEdit(): void
     {
         $this->actingAs($this->user);
         $response = $this->get(route('label.edit', $this->label));
         $response->assertStatus(200);
     }
 
-    public function testEditNotAllowedForGuest()
+    public function testEditNotAllowedForGuest(): void
     {
         $response = $this->get(route('label.edit', $this->label));
         $response->assertStatus(403);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $this->actingAs($this->user);
         $data = [
@@ -80,7 +81,7 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas('labels', $data);
     }
 
-    public function testUpdateNotAllowedForGuest()
+    public function testUpdateNotAllowedForGuest(): void
     {
         $oldLabel = $this->label->toArray();
         $data = [
@@ -92,7 +93,7 @@ class LabelControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDestroy()
+    public function testDestroy(): void
     {
         $this->actingAs($this->user);
         $this->assertDatabaseHas('labels', ['id' => $this->label->id]);
@@ -101,7 +102,7 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseMissing('labels', ['id' => $this->label->id]);
     }
 
-    public function testDestroyNotAllowedForGuest()
+    public function testDestroyNotAllowedForGuest(): void
     {
         $this->assertDatabaseHas('labels', ['id' => $this->label->id]);
         $response = $this->delete(route('label.destroy', $this->label));

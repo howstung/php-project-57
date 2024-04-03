@@ -33,13 +33,25 @@ class TaskControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function testShow(): void
+    {
+        $this->actingAs($this->user);
+        $this->post(route('task.store'), $this->task->toArray());
+        $task = Task::where('name', $this->task->name)->first();
+        $this->actingAs($this->user)->post('/logout');
+        $response = $this->get(route('task.show', $task->id));
+        $response->assertSee($task->name);
+        $response->assertSee($task->status->name);
+        $response->assertSee($task->description);
+    }
+
     public function testCreateNotAllowedForGuest(): void
     {
         $response = $this->get(route('task.create'));
         $response->assertStatus(403);
     }
 
-    public function testStore()
+    public function testStore(): void
     {
         $this->actingAs($this->user);
         $response = $this->post(route('task.store'), $this->task->toArray());
@@ -47,7 +59,7 @@ class TaskControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testStoreNotAllowedForGuest()
+    public function testStoreNotAllowedForGuest(): void
     {
         $hadBeenCount = Task::count();
         $response = $this->post(route('task.store'), $this->task->toArray());
@@ -56,20 +68,20 @@ class TaskControllerTest extends TestCase
         $this->assertEquals($hadBeenCount, $becameCount);
     }
 
-    public function testEdit()
+    public function testEdit(): void
     {
         $this->actingAs($this->user);
         $response = $this->get(route('task.edit', $this->task));
         $response->assertStatus(200);
     }
 
-    public function testEditNotAllowedForGuest()
+    public function testEditNotAllowedForGuest(): void
     {
         $response = $this->get(route('task.edit', $this->task));
         $response->assertStatus(403);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $this->actingAs($this->user);
         $data = [
@@ -83,7 +95,7 @@ class TaskControllerTest extends TestCase
         $this->assertDatabaseHas('tasks', $data);
     }
 
-    public function testUpdateNotAllowedForGuest()
+    public function testUpdateNotAllowedForGuest(): void
     {
         $oldTask = $this->task->toArray();
         $data = [
@@ -97,7 +109,7 @@ class TaskControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDestroy()
+    public function testDestroy(): void
     {
         $creator = User::find($this->task->created_by_id);
         $this->actingAs($creator);
@@ -107,7 +119,7 @@ class TaskControllerTest extends TestCase
         $this->assertDatabaseMissing('tasks', ['id' => $this->task->id]);
     }
 
-    public function testDestroyNotAllowedNotCreator()
+    public function testDestroyNotAllowedNotCreator(): void
     {
         $this->actingAs($this->user);
         $this->assertDatabaseHas('tasks', ['id' => $this->task->id]);
@@ -116,7 +128,7 @@ class TaskControllerTest extends TestCase
         $this->assertDatabaseHas('tasks', ['id' => $this->task->id]);
     }
 
-    public function testDestroyNotAllowedForGuest()
+    public function testDestroyNotAllowedForGuest(): void
     {
         $this->assertDatabaseHas('tasks', ['id' => $this->task->id]);
         $response = $this->delete(route('task.destroy', $this->task));

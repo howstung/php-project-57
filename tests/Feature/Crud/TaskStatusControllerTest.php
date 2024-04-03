@@ -38,7 +38,7 @@ class TaskStatusControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testStore()
+    public function testStore(): void
     {
         $this->actingAs($this->user);
         $response = $this->post(route('status.store'), $this->taskStatus->toArray());
@@ -46,7 +46,7 @@ class TaskStatusControllerTest extends TestCase
         $response->assertRedirect();
     }
 
-    public function testStoreNotAllowedForGuest()
+    public function testStoreNotAllowedForGuest(): void
     {
         $hadBeenCount = TaskStatus::count();
         $response = $this->post(route('status.store'), $this->taskStatus->toArray());
@@ -55,20 +55,20 @@ class TaskStatusControllerTest extends TestCase
         $this->assertEquals($hadBeenCount, $becameCount);
     }
 
-    public function testEdit()
+    public function testEdit(): void
     {
         $this->actingAs($this->user);
         $response = $this->get(route('status.edit', $this->taskStatus));
         $response->assertStatus(200);
     }
 
-    public function testEditNotAllowedForGuest()
+    public function testEditNotAllowedForGuest(): void
     {
         $response = $this->get(route('status.edit', $this->taskStatus));
         $response->assertStatus(403);
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $this->actingAs($this->user);
         $data = [
@@ -79,7 +79,7 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseHas('task_statuses', $data);
     }
 
-    public function testUpdateNotAllowedForGuest()
+    public function testUpdateNotAllowedForGuest(): void
     {
         $oldTaskStatus = $this->taskStatus->toArray();
         $data = [
@@ -90,7 +90,7 @@ class TaskStatusControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testDestroy()
+    public function testDestroy(): void
     {
         $this->actingAs($this->user);
         $this->assertDatabaseHas('task_statuses', ['id' => $this->taskStatus->id]);
@@ -99,7 +99,7 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseMissing('task_statuses', ['id' => $this->taskStatus->id]);
     }
 
-    public function testDestroyNotAllowedForGuest()
+    public function testDestroyNotAllowedForGuest(): void
     {
         $this->assertDatabaseHas('task_statuses', ['id' => $this->taskStatus->id]);
         $response = $this->delete(route('status.destroy', $this->taskStatus));
