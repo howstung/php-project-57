@@ -65,7 +65,7 @@
         </table>
 
         <!-- Pagination -->
-        {{--@include('task.pagination')--}}
+        @include('task.pagination')
 
     </div>
 </x-app-layout>
