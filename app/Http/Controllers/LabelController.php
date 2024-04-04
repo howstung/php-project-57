@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LabelRequest;
 use App\Models\Label;
-use Illuminate\Http\Request;
 
 class LabelController extends Controller
 {
@@ -12,25 +12,6 @@ class LabelController extends Controller
         $this->authorizeResource(Label::class);
     }
 
-    protected function rules(): array
-    {
-        return [
-            'name' => 'required|max:255|unique:labels',
-            'description' => 'nullable'
-        ];
-    }
-
-    protected function messages(): array
-    {
-        return [
-            'name.required' => __('validation.required'),
-            'name.unique' => __('validation.unique', ['model' => __('views.label.name')]),
-        ];
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $labels = Label::all();
@@ -43,16 +24,12 @@ class LabelController extends Controller
         return view('label.create', compact('label'));
     }
 
-    public function store(Request $request)
+    public function store(LabelRequest $request)
     {
-        $data = $this->getValidatedData($request);
-
         $label = new Label();
-        $label->fill($data);
+        $label->fill($request->validated());
         $label->save();
-
         flash(__('views.label.flash.store'))->success();
-
         return redirect()->route('label.index');
     }
 
@@ -62,10 +39,9 @@ class LabelController extends Controller
         return view('label.edit', compact('label'));
     }
 
-    public function update(Request $request, Label $label)
+    public function update(LabelRequest $request, Label $label)
     {
-        $data = $this->getValidatedData($request, $label);
-        $label->update($data);
+        $label->update($request->validated());
         flash(__('views.label.flash.update'))->success();
         return redirect()->route('label.index');
     }

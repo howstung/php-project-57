@@ -2,29 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskStatusRequest;
 use App\Models\TaskStatus;
-use Illuminate\Http\Request;
 
 class TaskStatusController extends Controller
 {
     public function __construct()
     {
         $this->authorizeResource(TaskStatus::class);
-    }
-
-    protected function rules(): array
-    {
-        return [
-            'name' => 'required|max:255|unique:task_statuses',
-        ];
-    }
-
-    protected function messages(): array
-    {
-        return [
-            'name.required' => __('validation.required'),
-            'name.unique' => __('validation.unique', ['model' => __('views.task_status.name')]),
-        ];
     }
 
     public function index()
@@ -39,12 +24,10 @@ class TaskStatusController extends Controller
         return view('task_status.create', compact('status'));
     }
 
-    public function store(Request $request)
+    public function store(TaskStatusRequest $request)
     {
-        $data = $this->getValidatedData($request);
-
         $task_status = new TaskStatus();
-        $task_status->fill($data);
+        $task_status->fill($request->validated());
         $task_status->save();
 
         flash(__('views.task_status.flash.store'))->success();
@@ -52,24 +35,23 @@ class TaskStatusController extends Controller
         return redirect()->route('status.index');
     }
 
-    public function edit(TaskStatus $task_status)
+    public function edit(TaskStatus $taskStatus)
     {
-        $status = $task_status;
+        $status = $taskStatus;
         return view('task_status.edit', compact('status'));
     }
 
-    public function update(Request $request, TaskStatus $task_status)
+    public function update(TaskStatusRequest $request, TaskStatus $taskStatus)
     {
-        $data = $this->getValidatedData($request, $task_status);
-        $task_status->update($data);
+        $taskStatus->update($request->validated());
         flash(__('views.task_status.flash.update'))->success();
         return redirect()->route('status.index');
     }
 
-    public function destroy(TaskStatus $task_status)
+    public function destroy(TaskStatus $taskStatus)
     {
-        if (count($task_status->tasks) == 0) {
-            $task_status->delete();
+        if (count($taskStatus->tasks) == 0) {
+            $taskStatus->delete();
             flash(__('views.task_status.flash.destroy.success'))->success();
         } else {
             flash(__('views.task_status.flash.destroy.fail'))->error();

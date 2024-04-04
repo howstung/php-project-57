@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
@@ -19,25 +20,6 @@ class TaskController extends Controller
         $this->authorizeResource(Task::class);
     }
 
-    protected function rules(): array
-    {
-        return [
-            'name' => 'required|unique:tasks',
-            'description' => 'nullable',
-            'status_id' => 'required',
-            'assigned_to_id' => 'nullable',
-        ];
-    }
-
-    protected function messages(): array
-    {
-        return [
-            'name.required' => __('validation.required'),
-            'name.unique' => __('validation.unique', ['model' => __('views.task.name')]),
-            'status_id.required' => __('validation.required'),
-        ];
-    }
-
     private function makeSelectArray(Collection $collection, string $key = 'id', string $value = 'name'): array
     {
         $array = $collection->toArray();
@@ -47,6 +29,7 @@ class TaskController extends Controller
         }
         return $select;
     }
+
     private function saveLabels($request, $task, $action = 'save')
     {
         $labels = $request->toArray()['labels'] ?? [];
@@ -97,7 +80,6 @@ class TaskController extends Controller
         ));
     }
 
-
     public function create()
     {
         $task = new Task();
@@ -109,13 +91,10 @@ class TaskController extends Controller
         return view('task.create', compact('task', 'users', 'statuses', 'labels'));
     }
 
-
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $data = $this->getValidatedData($request);
-
         $task = new Task();
-        $task->fill($data);
+        $task->fill($request->validated());
         $task->created_by_id = Auth::user()->id;
         $task->save();
 
@@ -140,10 +119,9 @@ class TaskController extends Controller
         return view('task.edit', compact('task', 'users', 'statuses', 'labels'));
     }
 
-    public function update(Request $request, Task $task)
+    public function update(TaskRequest $request, Task $task)
     {
-        $data = $this->getValidatedData($request, $task);
-        $task->update($data);
+        $task->update($request->validated());
         $this->saveLabels($request, $task, 'update');
 
         flash(__('views.task.flash.update'))->success();
