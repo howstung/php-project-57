@@ -55,20 +55,15 @@ class TaskController extends Controller
             ->paginate(10);
         //->get();
 
-
         $authors = $executors = $this->makeSelectArray(User::all());
         $statuses = $this->makeSelectArray(TaskStatus::all());
-
         $status_selected = $request->get('filter')['status_id'] ?? null;
         $author_selected = $request->get('filter')['created_by_id'] ?? null;
         $executor_selected = $request->get('filter')['assigned_to_id'] ?? null;
-
         $perPage = $tasks->perPage();
-
         $total = $tasks->total();
         $lastPage = $tasks->lastPage();
         $currentPage = $tasks->currentPage() > $lastPage ? 1 : $tasks->currentPage();
-
 
         return view('task.index', compact(
             'tasks',
