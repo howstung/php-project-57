@@ -47,8 +47,8 @@ class TaskController extends Controller
     {
         $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters('status_id', 'created_by_id', 'assigned_to_id')
-            ->paginate(5);
-        //->get();
+            //->paginate(10);
+        ->get();
 
 
         $authors = $executors = $this->makeSelectArray(User::all());
@@ -58,11 +58,11 @@ class TaskController extends Controller
         $author_selected = $request->get('filter')['created_by_id'] ?? null;
         $executor_selected = $request->get('filter')['assigned_to_id'] ?? null;
 
-        $perPage = $tasks->perPage();
+/*        $perPage = $tasks->perPage();
 
         $total = $tasks->total();
         $lastPage = $tasks->lastPage();
-        $currentPage = $tasks->currentPage() > $lastPage ? 1 : $tasks->currentPage();
+        $currentPage = $tasks->currentPage() > $lastPage ? 1 : $tasks->currentPage();*/
 
 
         return view('task.index', compact(
@@ -73,10 +73,10 @@ class TaskController extends Controller
             'status_selected',
             'author_selected',
             'executor_selected',
-            'perPage',
+            /*            'perPage',
             'currentPage',
             'total',
-            'lastPage'
+            'lastPage'*/
         ));
     }
 
