@@ -45,8 +45,9 @@ class TaskControllerTest extends TestCase
         $this->actingAs($this->user)->post('/logout');
         $response = $this->get(route('task.show', $this->task->id));
         $response->assertSee($this->task->name);
-        $response->assertSee($this->task->status->name);
-        $response->assertSee($this->task->description);
+        $statusName = $this->task->status instanceof TaskStatus ? $this->task->status->name : "";
+        $response->assertSee($statusName);
+        $response->assertSee((string)$this->task->description);
     }
 
     public function testCreateNotAllowedForGuest(): void
