@@ -53,20 +53,8 @@
                             )
 
                             @if($task->author->id === Auth::user()->id)
-                                @include('parts.modal_delete', [
-                                    'labelName' => 'Task',
-                                    'modal_id' => $task->id,
-                                    'buttonTitle' => __('views.task.modal.delete'),
-                                    'modalHeader' => __('views.task.modal.sure'),
-                                    'modalBody' => __('views.task.modal.will_be_deleted') .': '.  $task->name,
-                                    'modalCancel' =>__('views.task.modal.cancel'),
-                                    'modalOK' => 'OK',
-                                    'form' => [
-                                        'model' => $task,
-                                        'route' => ['route' => ['task.destroy', $task], 'method'=>'DELETE']
-                                    ]
-                                ])
-
+                                {{--@include('parts.modal_delete', ['model' => 'task'])--}}
+                                @include('parts.modal_delete_simple', ['model' => 'task'])
                             @endif
                         </td>
                     @endauth

@@ -1,0 +1,31 @@
+h1, h3 {
+    font-size: 3rem;
+    margin-top:100px;
+    margin-bottom: 20px;
+}
+.modal h1 {
+    margin: 0;
+}
+input[type=submit] {
+    cursor: pointer;
+}
+
+a.btn {
+    margin: 20px 0;
+}
+
+.nav a, .nav button{
+    color: gray;
+}
+
+nav a.btn {
+    margin: 0 5px 0 0;
+}
+
+.form-label {
+    margin: 15px 0 5px;
+}
+
+.p-task-item{
+    font-weight: bold;
+}

@@ -7,7 +7,7 @@
 
                 @auth
                     <div>
-                        <a href="{{ route('status.create') }}"
+                        <a href="{{ route('task_status.create') }}"
                            class="btn btn-secondary">
                             {{ __('views.task_status.pages.index.new') }} </a>
                     </div>
@@ -26,32 +26,19 @@
                     </thead>
                     <tbody>
 
-                    @foreach ($statuses as $status)
+                    @foreach ($task_statuses as $task_status)
 
                         <tr>
-                            <th scope="row">{{ $status->id }}</th>
-                            <td>{{ $status->name }}</td>
-                            <td>{{ $status->getCreatedAt() }}</td>
+                            <th scope="row">{{ $task_status->id }}</th>
+                            <td>{{ $task_status->name }}</td>
+                            <td>{{ $task_status->getCreatedAt() }}</td>
 
                             @auth
-                                <td>
+                            <td>
+                                @include('parts.input_edit', ['title' => __('views.task_status.pages.index.edit'),'route' => route('task_status.edit', $task_status->id)])
 
-                                @include('parts.input_edit', ['title' => __('views.task_status.pages.index.edit'),'route' => route('status.edit', $status->id)]
-)
-                                @include('parts.modal_delete', [
-                                    'labelName'=>'TaskStatus',
-                                    'modal_id'=>$status->id,
-                                    'buttonTitle' => __('views.task_status.modal.delete'),
-                                    'modalHeader'=>__('views.task_status.modal.sure'),
-                                    'modalBody'=> __('views.task_status.modal.will_be_deleted') .': '.  $status->name,
-                                    'modalCancel'=>__('views.task_status.modal.cancel'),
-                                    'modalOK'=>__('views.task_status.modal.ok'),
-                                    'form'=>[
-                                        'model'=>$status,
-                                        'route'=>['route' => ['status.destroy', $status], 'method'=>'DELETE']
-                                    ]
-                                ])
-
+                                {{--@include('parts.modal_delete', ['model' => 'task_status'])--}}
+                                @include('parts.modal_delete_simple', ['model' => 'task_status'])
                             </td>
                             @endauth
                         </tr>

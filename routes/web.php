@@ -35,13 +35,13 @@ require __DIR__ . '/auth.php';
 
 Route::resource('task_statuses', TaskStatusController::class)
     ->names([
-        'index' => 'status.index',
-        'create' => 'status.create',
-        'store' => 'status.store',
-        'show' => 'status.show',
-        'edit' => 'status.edit',
-        'update' => 'status.update',
-        'destroy' => 'status.destroy',
+        'index' => 'task_status.index',
+        'create' => 'task_status.create',
+        'store' => 'task_status.store',
+        'show' => 'task_status.show',
+        'edit' => 'task_status.edit',
+        'update' => 'task_status.update',
+        'destroy' => 'task_status.destroy',
     ]);
 
 Route::resource('labels', LabelController::class)

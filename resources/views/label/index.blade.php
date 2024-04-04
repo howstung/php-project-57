@@ -37,24 +37,11 @@
 
                             @auth
                                 <td>
+                                    @include('parts.input_edit', ['title' => __('views.label.pages.index.edit'),'route' => route('label.edit', $label->id)])
 
-                                @include('parts.input_edit', ['title' => __('views.label.pages.index.edit'),'route' => route('label.edit', $label->id)])
-
-                                @include('parts.modal_delete', [
-                                    'labelName'=>'Label',
-                                    'modal_id'=>$label->id,
-                                    'buttonTitle' => __('views.label.modal.delete'),
-                                    'modalHeader'=>__('views.label.modal.sure'),
-                                    'modalBody'=> __('views.label.modal.will_be_deleted') .': '.  $label->name,
-                                    'modalCancel'=>__('views.label.modal.cancel'),
-                                    'modalOK'=>__('views.label.modal.ok'),
-                                    'form'=>[
-                                        'model'=>$label,
-                                        'route'=>['route' => ['label.destroy', $label], 'method'=>'DELETE']
-                                    ]
-                                ])
-
-                            </td>
+                                    {{--@include('parts.modal_delete', ['model' => 'label'])--}}
+                                    @include('parts.modal_delete_simple', ['model' => 'label'])
+                                </td>
                             @endauth
                         </tr>
                     @endforeach

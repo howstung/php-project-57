@@ -14,14 +14,16 @@ class TaskStatusController extends Controller
 
     public function index()
     {
-        $statuses = TaskStatus::all();
-        return view('task_status.index', compact('statuses'));
+        $task_statuses = TaskStatus::all();
+        return view('task_status.index', compact('task_statuses'));
     }
 
     public function create()
     {
-        $status = new TaskStatus();
-        return view('task_status.create', compact('status'));
+        $task_status = new TaskStatus();
+        $model = 'task_status';
+        $action = 'store';
+        return view('parts.form_wrapper_store_update', compact('task_status', 'model', 'action'));
     }
 
     public function store(TaskStatusRequest $request)
@@ -32,30 +34,31 @@ class TaskStatusController extends Controller
 
         flash(__('views.task_status.flash.store'))->success();
 
-        return redirect()->route('status.index');
+        return redirect()->route('task_status.index');
     }
 
-    public function edit(TaskStatus $taskStatus)
+    public function edit(TaskStatus $task_status)
     {
-        $status = $taskStatus;
-        return view('task_status.edit', compact('status'));
+        $model = 'task_status';
+        $action = 'update';
+        return view('parts.form_wrapper_store_update', compact('task_status', 'model', 'action'));
     }
 
-    public function update(TaskStatusRequest $request, TaskStatus $taskStatus)
+    public function update(TaskStatusRequest $request, TaskStatus $task_status)
     {
-        $taskStatus->update($request->validated());
+        $task_status->update($request->validated());
         flash(__('views.task_status.flash.update'))->success();
-        return redirect()->route('status.index');
+        return redirect()->route('task_status.index');
     }
 
-    public function destroy(TaskStatus $taskStatus)
+    public function destroy(TaskStatus $task_status)
     {
-        if (count($taskStatus->tasks) == 0) {
-            $taskStatus->delete();
+        if (count($task_status->tasks) == 0) {
+            $task_status->delete();
             flash(__('views.task_status.flash.destroy.success'))->success();
         } else {
             flash(__('views.task_status.flash.destroy.fail'))->error();
         }
-        return redirect()->route('status.index');
+        return redirect()->route('task_status.index');
     }
 }

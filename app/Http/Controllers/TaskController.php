@@ -88,7 +88,12 @@ class TaskController extends Controller
         $statuses = $this->makeSelectArray(TaskStatus::all());
         $labels = $this->makeSelectArray(Label::all());
 
-        return view('task.create', compact('task', 'users', 'statuses', 'labels'));
+        $model = 'task';
+        $action = 'store';
+        return view(
+            'parts.form_wrapper_store_update',
+            compact('task', 'model', 'action', 'users', 'statuses', 'labels')
+        );
     }
 
     public function store(TaskRequest $request)
@@ -116,7 +121,12 @@ class TaskController extends Controller
         $statuses = $this->makeSelectArray(TaskStatus::all());
         $labels = $this->makeSelectArray(Label::all());
 
-        return view('task.edit', compact('task', 'users', 'statuses', 'labels'));
+        $model = 'task';
+        $action = 'update';
+        return view(
+            'parts.form_wrapper_store_update',
+            compact('task', 'model', 'action', 'users', 'statuses', 'labels')
+        );
     }
 
     public function update(TaskRequest $request, Task $task)

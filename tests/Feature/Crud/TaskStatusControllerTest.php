@@ -21,27 +21,27 @@ class TaskStatusControllerTest extends TestCase
 
     public function testIndex(): void
     {
-        $response = $this->get(route('status.index'));
+        $response = $this->get(route('task_status.index'));
         $response->assertStatus(200);
     }
 
     public function testCreate(): void
     {
         $this->actingAs($this->user);
-        $response = $this->get(route('status.create'));
+        $response = $this->get(route('task_status.create'));
         $response->assertStatus(200);
     }
 
     public function testCreateNotAllowedForGuest(): void
     {
-        $response = $this->get(route('status.create'));
+        $response = $this->get(route('task_status.create'));
         $response->assertStatus(403);
     }
 
     public function testStore(): void
     {
         $this->actingAs($this->user);
-        $response = $this->post(route('status.store'), $this->taskStatus->toArray());
+        $response = $this->post(route('task_status.store'), $this->taskStatus->toArray());
         $this->assertDatabaseHas('task_statuses', $this->taskStatus->toArray());
         $response->assertRedirect();
     }
@@ -49,7 +49,7 @@ class TaskStatusControllerTest extends TestCase
     public function testStoreNotAllowedForGuest(): void
     {
         $hadBeenCount = TaskStatus::count();
-        $response = $this->post(route('status.store'), $this->taskStatus->toArray());
+        $response = $this->post(route('task_status.store'), $this->taskStatus->toArray());
         $becameCount = TaskStatus::count();
         $response->assertStatus(403);
         $this->assertEquals($hadBeenCount, $becameCount);
@@ -58,13 +58,13 @@ class TaskStatusControllerTest extends TestCase
     public function testEdit(): void
     {
         $this->actingAs($this->user);
-        $response = $this->get(route('status.edit', $this->taskStatus));
+        $response = $this->get(route('task_status.edit', $this->taskStatus));
         $response->assertStatus(200);
     }
 
     public function testEditNotAllowedForGuest(): void
     {
-        $response = $this->get(route('status.edit', $this->taskStatus));
+        $response = $this->get(route('task_status.edit', $this->taskStatus));
         $response->assertStatus(403);
     }
 
@@ -74,7 +74,7 @@ class TaskStatusControllerTest extends TestCase
         $data = [
             'name' => 'TaskStatus-TestUpdate-' . rand()
         ];
-        $response = $this->patch(route('status.update', $this->taskStatus), $data);
+        $response = $this->patch(route('task_status.update', $this->taskStatus), $data);
         $response->assertRedirect();
         $this->assertDatabaseHas('task_statuses', $data);
     }
@@ -85,7 +85,7 @@ class TaskStatusControllerTest extends TestCase
         $data = [
             'name' => 'TaskStatus-TestUpdate-Guest-' . rand()
         ];
-        $response = $this->patch(route('status.update', $this->taskStatus), $data);
+        $response = $this->patch(route('task_status.update', $this->taskStatus), $data);
         $this->assertDatabaseHas('task_statuses', $oldTaskStatus);
         $response->assertStatus(403);
     }
@@ -94,7 +94,7 @@ class TaskStatusControllerTest extends TestCase
     {
         $this->actingAs($this->user);
         $this->assertDatabaseHas('task_statuses', ['id' => $this->taskStatus->id]);
-        $response = $this->delete(route('status.destroy', $this->taskStatus));
+        $response = $this->delete(route('task_status.destroy', $this->taskStatus));
         $response->assertRedirect();
         $this->assertDatabaseMissing('task_statuses', ['id' => $this->taskStatus->id]);
     }
@@ -102,7 +102,7 @@ class TaskStatusControllerTest extends TestCase
     public function testDestroyNotAllowedForGuest(): void
     {
         $this->assertDatabaseHas('task_statuses', ['id' => $this->taskStatus->id]);
-        $response = $this->delete(route('status.destroy', $this->taskStatus));
+        $response = $this->delete(route('task_status.destroy', $this->taskStatus));
         $this->assertDatabaseHas('task_statuses', ['id' => $this->taskStatus->id]);
         $response->assertStatus(403);
     }

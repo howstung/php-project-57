@@ -21,7 +21,9 @@ class LabelController extends Controller
     public function create()
     {
         $label = new Label();
-        return view('label.create', compact('label'));
+        $model = 'label';
+        $action = 'store';
+        return view('parts.form_wrapper_store_update', compact('label', 'model', 'action'));
     }
 
     public function store(LabelRequest $request)
@@ -36,7 +38,9 @@ class LabelController extends Controller
 
     public function edit(Label $label)
     {
-        return view('label.edit', compact('label'));
+        $model = 'label';
+        $action = 'update';
+        return view('parts.form_wrapper_store_update', compact('label', 'model', 'action'));
     }
 
     public function update(LabelRequest $request, Label $label)

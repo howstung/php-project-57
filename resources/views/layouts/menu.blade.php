@@ -19,7 +19,7 @@
                         <a class="nav-link {{ request()->routeIs('task.*')?'active':null }}" aria-current="page" href="{{ route('task.index') }}">{{ __('views.menu.items.tasks') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('status.*')?'active':null }}" href="{{ route('status.index') }}">{{ __('views.menu.items.task_statuses') }}</a>
+                        <a class="nav-link {{ request()->routeIs('status.*')?'active':null }}" href="{{ route('task_status.index') }}">{{ __('views.menu.items.task_statuses') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('label.*')?'active':null }}" href="{{ route('label.index') }}">{{ __('views.menu.items.labels') }}</a>
@@ -79,7 +79,7 @@
                     <a class="btn btn-outline-secondary" href="{{ route('login') }}">{{ __('views.menu.profile.login') }}</a>
 
                     @if (Route::has('register'))
-                        <a class="btn btn-outline-secondary" href="{{ url('/') }}/register">{{ __('views.menu.profile.register') }}</a>
+                        <a class="btn btn-outline-secondary" href="{{ route('register') }}">{{ __('views.menu.profile.register') }}</a>
                     @endif
                 @endauth
 

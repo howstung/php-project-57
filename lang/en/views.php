@@ -43,11 +43,11 @@ return [
                 'new' => 'Create label',
                 'edit' => 'Edit'
             ],
-            'create' => [
+            'store' => [
                 'title' => 'Create label',
                 'submit' => 'Create'
             ],
-            'edit' => [
+            'update' => [
                 'title' => 'Edit Label',
                 'submit' => 'Edit'
             ]
@@ -84,11 +84,11 @@ return [
                 'new' => 'Create Status',
                 'edit' => 'Edit'
             ],
-            'create' => [
+            'store' => [
                 'title' => 'Create Status',
                 'submit' => 'Create'
             ],
-            'edit' => [
+            'update' => [
                 'title' => 'Edit status',
                 'submit' => 'Edit'
             ],
@@ -139,11 +139,11 @@ return [
                 'new' => 'Create task',
                 'edit' => 'Edit',
             ],
-            'create' => [
+            'store' => [
                 'title' => 'Create task',
                 'submit' => 'Create'
             ],
-            'edit' => [
+            'update' => [
                 'title' => 'Edit Task',
                 'submit' => 'Edit'
             ],
