@@ -12,6 +12,10 @@ class LabelControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private User $user;
+    private Label $label;
+    private Task $task;
+
     protected function setUp(): void
     {
         parent::setUp();

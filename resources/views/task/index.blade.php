@@ -52,7 +52,7 @@
                                 ]
                             )
 
-                            @if($task->author->id === Auth::user()->id)
+                            @if($task->author->id === Auth::id())
                                 {{--@include('parts.modal_delete', ['model' => 'task'])--}}
                                 @include('parts.modal_delete_simple', ['model' => 'task'])
                             @endif

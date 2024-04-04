@@ -163,8 +163,7 @@ return [
             'store' => 'Task created successfully',
             'update' => 'Task updated successfully',
             'destroy' => [
-                'success' => 'Task deleted successfully',
-                'fail' => 'Failed to remove Task',
+                'success' => 'Task deleted successfully'
             ],
         ],
     ]

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Task;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TaskRequest extends FormRequest
@@ -27,7 +28,7 @@ class TaskRequest extends FormRequest
             'status_id' => 'required',
             'assigned_to_id' => 'nullable',
         ];
-        if ($this->getMethod() === 'PATCH') {
+        if ($this->getMethod() === 'PATCH' && $this->route('task') instanceof Task) {
             $rules['name'] .= ",name," . $this->route('task')->id;
         }
         return $rules;

@@ -31,7 +31,7 @@ class TaskController extends Controller
         return $select;
     }
 
-    private function saveLabels($request, $task, $action = 'save')
+    private function saveLabels(Request $request, Task $task, string $action = 'save'): void
     {
         $labels = $request->toArray()['labels'] ?? [];
         $LabelsObjects = [];
@@ -100,7 +100,7 @@ class TaskController extends Controller
     {
         $task = new Task();
         $task->fill($request->validated());
-        $task->created_by_id = Auth::user()->id;
+        $task->created_by_id = Auth::id();
         $task->save();
 
         $this->saveLabels($request, $task);
@@ -141,12 +141,8 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        if ($task->author->id === Auth::user()->id) {
-            $task->delete();
-            flash(__('views.task.flash.destroy.success'))->success();
-        } else {
-            flash(__('views.task.flash.destroy.fail'))->error();
-        }
+        $task->delete();
+        flash(__('views.task.flash.destroy.success'))->success();
         return redirect()->route('task.index');
     }
 }

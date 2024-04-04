@@ -12,6 +12,9 @@ class TaskControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private User $user;
+    private Task $task;
+
     protected function setUp(): void
     {
         parent::setUp();
