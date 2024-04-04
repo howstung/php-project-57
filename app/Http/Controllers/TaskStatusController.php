@@ -15,6 +15,7 @@ class TaskStatusController extends Controller
     public function index()
     {
         $task_statuses = TaskStatus::all();
+
         return view('task_status.index', compact('task_statuses'));
     }
 
@@ -23,6 +24,7 @@ class TaskStatusController extends Controller
         $task_status = new TaskStatus();
         $model = 'task_status';
         $action = 'store';
+
         return view('parts.form_wrapper_store_update', compact('task_status', 'model', 'action'));
     }
 
@@ -41,6 +43,7 @@ class TaskStatusController extends Controller
     {
         $model = 'task_status';
         $action = 'update';
+
         return view('parts.form_wrapper_store_update', compact('task_status', 'model', 'action'));
     }
 
@@ -48,6 +51,7 @@ class TaskStatusController extends Controller
     {
         $task_status->update($request->validated());
         flash(__('views.task_status.flash.update'))->success();
+
         return redirect()->route('task_status.index');
     }
 
@@ -59,6 +63,7 @@ class TaskStatusController extends Controller
         } else {
             flash(__('views.task_status.flash.destroy.fail'))->error();
         }
+
         return redirect()->route('task_status.index');
     }
 }

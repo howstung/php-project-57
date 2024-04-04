@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 
 class BasePolicy
 {
@@ -27,7 +26,7 @@ class BasePolicy
         return $user !== null;
     }
 
-    public function delete(?User $user, Model $model): bool
+    public function delete(?User $user): bool
     {
         return $user !== null;
     }

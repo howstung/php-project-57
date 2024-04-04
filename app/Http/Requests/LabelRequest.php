@@ -24,11 +24,12 @@ class LabelRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|max:255|unique:labels',
-            'description' => 'nullable'
+            'description' => 'nullable',
         ];
         if ($this->getMethod() === 'PATCH' && $this->route('label') instanceof Label) {
-            $rules['name'] .= ",name," . $this->route('label')->id;
+            $rules['name'] .= ',name,' . $this->route('label')->id;
         }
+
         return $rules;
     }
 

@@ -41,7 +41,7 @@
                            style="text-decoration: none">{{ $task->name }}</a></td>
                     <td>{{ $task->author->name ?? null }}</td>
                     <td>{{ $task->executor->name ?? null }}</td>
-                    <td>{{ $task->getCreatedAt() }}</td>
+                    <td>{{ $task->created_at->format('d.m.Y') }}</td>
 
                     @auth
                         <td style="min-width: 100px;">

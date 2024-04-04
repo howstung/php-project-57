@@ -8,8 +8,8 @@ return [
         'created_by_id' => 1,
         'assigned_to_id' => 3,
         'labels' => [
-            7, 6, 5
-        ]
+            7, 6, 5,
+        ],
     ],
     [
         'name' => 'Отрефакторить авторизацию',
@@ -18,8 +18,8 @@ return [
         'created_by_id' => 1,
         'assigned_to_id' => 2,
         'labels' => [
-            5, 7, 2
-        ]
+            5, 7, 2,
+        ],
     ],
     [
         'name' => 'Исправить поиск',
@@ -28,8 +28,8 @@ return [
         'created_by_id' => 1,
         'assigned_to_id' => 6,
         'labels' => [
-            2, 7, 9, 12
-        ]
+            2, 7, 9, 12,
+        ],
     ],
     [
         'name' => 'Вернуть крошки',
@@ -38,8 +38,8 @@ return [
         'created_by_id' => 4,
         'assigned_to_id' => 5,
         'labels' => [
-            2, 5
-        ]
+            2, 5,
+        ],
     ],
     [
         'name' => 'Поправить меню',
@@ -48,8 +48,8 @@ return [
         'created_by_id' => 2,
         'assigned_to_id' => 1,
         'labels' => [
-            8, 1
-        ]
+            8, 1,
+        ],
     ],
     [
         'name' => 'Развернуть новое тестовое окружение',
@@ -58,8 +58,8 @@ return [
         'created_by_id' => 6,
         'assigned_to_id' => 2,
         'labels' => [
-            2, 6, 10
-        ]
+            2, 6, 10,
+        ],
     ],
 
     [
@@ -69,8 +69,8 @@ return [
         'created_by_id' => 2,
         'assigned_to_id' => 5,
         'labels' => [
-            5, 6, 8, 9
-        ]
+            5, 6, 8, 9,
+        ],
     ],
 
     [
@@ -80,8 +80,8 @@ return [
         'created_by_id' => 4,
         'assigned_to_id' => 1,
         'labels' => [
-            3, 6
-        ]
+            3, 6,
+        ],
     ],
 
     [
@@ -91,8 +91,8 @@ return [
         'created_by_id' => 4,
         'assigned_to_id' => 1,
         'labels' => [
-            3, 9, 12
-        ]
+            3, 9, 12,
+        ],
     ],
 
     [
@@ -102,7 +102,7 @@ return [
         'created_by_id' => 3,
         'assigned_to_id' => 4,
         'labels' => [
-            2, 11
-        ]
+            2, 11,
+        ],
     ],
 ];

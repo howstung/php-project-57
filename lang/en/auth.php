@@ -22,7 +22,7 @@ return [
         'password' => 'Password',
         'remember_me' => 'Remember me',
         'forgot_password' => 'Forgot your password?',
-        'submit' => 'Log in'
+        'submit' => 'Log in',
     ],
 
     'register' => [
@@ -32,10 +32,10 @@ return [
         'confirm_password' => 'Confirm Password',
         'already_registered' => 'Already registered?',
         'register' => 'Register',
-        'reset_password' => 'Reset Password'
+        'reset_password' => 'Reset Password',
     ],
 
     'forgot' => 'Forgot your password? No problem. Just let us know your email address
                 and we will email you a password reset link that will allow you to choose a new one.',
-    'reset_link' => 'Email Password Reset Link'
+    'reset_link' => 'Email Password Reset Link',
 ];

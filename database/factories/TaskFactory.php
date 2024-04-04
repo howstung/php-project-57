@@ -24,7 +24,7 @@ class TaskFactory extends Factory
             'description' => fake()->text,
             'status_id' => TaskStatus::factory()->create(),
             'created_by_id' => User::factory()->create(),
-            'assigned_to_id' => User::factory()->create()
+            'assigned_to_id' => User::factory()->create(),
         ];
     }
 }

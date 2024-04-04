@@ -29,8 +29,9 @@ class TaskRequest extends FormRequest
             'assigned_to_id' => 'nullable',
         ];
         if ($this->getMethod() === 'PATCH' && $this->route('task') instanceof Task) {
-            $rules['name'] .= ",name," . $this->route('task')->id;
+            $rules['name'] .= ',name,' . $this->route('task')->id;
         }
+
         return $rules;
     }
 

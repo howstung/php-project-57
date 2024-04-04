@@ -13,7 +13,7 @@ class TaskSeeder extends Seeder
      */
     public function run(): void
     {
-        $tasks = require __DIR__ . "/tasks_for_seeder.php";
+        $tasks = require __DIR__ . '/tasks_for_seeder.php';
 
         foreach ($tasks as $data) {
             $labels = array_pop($data);

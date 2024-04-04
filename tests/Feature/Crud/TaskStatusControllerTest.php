@@ -12,6 +12,7 @@ class TaskStatusControllerTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private TaskStatus $taskStatus;
 
     protected function setUp(): void
@@ -75,7 +76,7 @@ class TaskStatusControllerTest extends TestCase
     {
         $this->actingAs($this->user);
         $data = [
-            'name' => 'TaskStatus-TestUpdate-' . rand()
+            'name' => 'TaskStatus-TestUpdate-' . rand(),
         ];
         $response = $this->patch(route('task_status.update', $this->taskStatus), $data);
         $response->assertRedirect();
@@ -86,7 +87,7 @@ class TaskStatusControllerTest extends TestCase
     {
         $oldTaskStatus = $this->taskStatus->toArray();
         $data = [
-            'name' => 'TaskStatus-TestUpdate-Guest-' . rand()
+            'name' => 'TaskStatus-TestUpdate-Guest-' . rand(),
         ];
         $response = $this->patch(route('task_status.update', $this->taskStatus), $data);
         $this->assertDatabaseHas('task_statuses', $oldTaskStatus);

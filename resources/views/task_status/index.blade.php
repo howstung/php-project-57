@@ -31,7 +31,7 @@
                         <tr>
                             <td>{{ $task_status->id }}</td>
                             <td>{{ $task_status->name }}</td>
-                            <td>{{ $task_status->getCreatedAt() }}</td>
+                            <td>{{ $task_status->created_at->format('d.m.Y') }}</td>
 
                             @auth
                             <td>

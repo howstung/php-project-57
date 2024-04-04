@@ -13,6 +13,7 @@ class TaskControllerTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Task $task;
 
     protected function setUp(): void
@@ -40,12 +41,12 @@ class TaskControllerTest extends TestCase
     {
         $this->actingAs($this->user);
         $this->post(route('task.store'), $this->task->toArray());
-        $task = Task::where('name', $this->task->name)->first();
+        //$task = Task::where('name', $this->task->name)->first();
         $this->actingAs($this->user)->post('/logout');
-        $response = $this->get(route('task.show', $task->id));
-        $response->assertSee($task->name);
-        $response->assertSee($task->status->name);
-        $response->assertSee($task->description);
+        $response = $this->get(route('task.show', $this->task->id));
+        $response->assertSee($this->task->name);
+        $response->assertSee($this->task->status->name);
+        $response->assertSee($this->task->description);
     }
 
     public function testCreateNotAllowedForGuest(): void

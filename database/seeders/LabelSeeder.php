@@ -30,14 +30,14 @@ class LabelSeeder extends Seeder
             'Design' => 'Задача для дизайнера',
 
             'срочно' => 'Очень срочная задача',
-            'на особом контроле' => 'Задача на особом контроле'
+            'на особом контроле' => 'Задача на особом контроле',
         ];
         foreach ($labels as $name => $description) {
             DB::table('labels')->insert([
                 'name' => $name,
                 'description' => $description,
                 'created_at' => $now,
-                'updated_at' => $now
+                'updated_at' => $now,
             ]);
         }
     }

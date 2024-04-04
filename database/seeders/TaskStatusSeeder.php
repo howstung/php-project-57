@@ -20,13 +20,13 @@ class TaskStatusSeeder extends Seeder
             'на тестировании',
             'завершен',
 
-            'в архиве'
+            'в архиве',
         ];
         foreach ($default_statuses as $status) {
             DB::table('task_statuses')->insert([
                 'name' => $status,
                 'created_at' => $now,
-                'updated_at' => $now
+                'updated_at' => $now,
             ]);
         }
     }

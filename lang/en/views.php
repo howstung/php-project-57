@@ -4,29 +4,27 @@ return [
 
     'title' => 'Task Manager',
 
-
     'menu' => [
         'items' => [
             'main' => 'Main',
             'tasks' => 'Tasks',
             'task_statuses' => 'Task Statuses',
-            'labels' => 'Labels'
+            'labels' => 'Labels',
         ],
         'profile' => [
             'login' => 'Login',
             'register' => 'Register',
             'profile' => 'Profile',
-            'logout' => 'Logout'
-        ]
+            'logout' => 'Logout',
+        ],
     ],
 
     'pages' => [
         'welcome' => [
             'h1' => 'PHP project for Hexlet!',
-            'p' => 'This is a simple Laravel task manager'
+            'p' => 'This is a simple Laravel task manager',
         ],
     ],
-
 
     'label' => [
         'name' => 'Label',
@@ -41,23 +39,23 @@ return [
             'index' => [
                 'title' => 'Labels',
                 'new' => 'Create label',
-                'edit' => 'Edit'
+                'edit' => 'Edit',
             ],
             'store' => [
                 'title' => 'Create label',
-                'submit' => 'Create'
+                'submit' => 'Create',
             ],
             'update' => [
                 'title' => 'Edit Label',
-                'submit' => 'Edit'
-            ]
+                'submit' => 'Edit',
+            ],
         ],
         'modal' => [
             'delete' => 'Delete',
             'sure' => 'Are you sure ?',
             'will_be_deleted' => 'The Label will be deleted',
             'cancel' => 'Cancel',
-            'ok' => 'OK'
+            'ok' => 'OK',
         ],
         'flash' => [
             'store' => 'Market created successfully',
@@ -68,7 +66,6 @@ return [
             ],
         ],
     ],
-
 
     'task_status' => [
         'name' => 'Status',
@@ -82,15 +79,15 @@ return [
             'index' => [
                 'title' => 'Task Statuses',
                 'new' => 'Create Status',
-                'edit' => 'Edit'
+                'edit' => 'Edit',
             ],
             'store' => [
                 'title' => 'Create Status',
-                'submit' => 'Create'
+                'submit' => 'Create',
             ],
             'update' => [
                 'title' => 'Edit status',
-                'submit' => 'Edit'
+                'submit' => 'Edit',
             ],
         ],
         'modal' => [
@@ -98,7 +95,7 @@ return [
             'sure' => 'Are you sure ?',
             'will_be_deleted' => 'Task Status will be deleted',
             'cancel' => 'Cancel',
-            'ok' => 'OK'
+            'ok' => 'OK',
         ],
         'flash' => [
             'store' => 'Task Status created successfully',
@@ -109,7 +106,6 @@ return [
             ],
         ],
     ],
-
 
     'task' => [
         'name' => 'Task',
@@ -122,10 +118,10 @@ return [
             'executor' => 'Executor',
             'created_at' => 'Created At',
             'actions' => 'Actions',
-            'labels' => 'labels'
+            'labels' => 'labels',
         ],
         'filter' => [
-            'submit' => 'Apply'
+            'submit' => 'Apply',
         ],
         'pagination' => [
             'showing' => 'Showing results',
@@ -141,15 +137,15 @@ return [
             ],
             'store' => [
                 'title' => 'Create task',
-                'submit' => 'Create'
+                'submit' => 'Create',
             ],
             'update' => [
                 'title' => 'Edit Task',
-                'submit' => 'Edit'
+                'submit' => 'Edit',
             ],
             'show' => [
                 'title' => 'Show task',
-                'submit' => 'Create'
+                'submit' => 'Create',
             ],
         ],
         'modal' => [
@@ -157,14 +153,15 @@ return [
             'sure' => 'Are you sure ?',
             'will_be_deleted' => 'Task will be deleted',
             'cancel' => 'Cancel',
-            'ok' => 'OK'
+            'ok' => 'OK',
         ],
         'flash' => [
             'store' => 'Task created successfully',
             'update' => 'Task updated successfully',
             'destroy' => [
-                'success' => 'Task deleted successfully'
+                'success' => 'Task deleted successfully',
+                'fail' => 'Failed to remove Task',
             ],
         ],
-    ]
+    ],
 ];

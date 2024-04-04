@@ -15,6 +15,7 @@ class LabelController extends Controller
     public function index()
     {
         $labels = Label::all();
+
         return view('label.index', compact('labels'));
     }
 
@@ -23,6 +24,7 @@ class LabelController extends Controller
         $label = new Label();
         $model = 'label';
         $action = 'store';
+
         return view('parts.form_wrapper_store_update', compact('label', 'model', 'action'));
     }
 
@@ -32,14 +34,15 @@ class LabelController extends Controller
         $label->fill($request->validated());
         $label->save();
         flash(__('views.label.flash.store'))->success();
+
         return redirect()->route('label.index');
     }
-
 
     public function edit(Label $label)
     {
         $model = 'label';
         $action = 'update';
+
         return view('parts.form_wrapper_store_update', compact('label', 'model', 'action'));
     }
 
@@ -47,6 +50,7 @@ class LabelController extends Controller
     {
         $label->update($request->validated());
         flash(__('views.label.flash.update'))->success();
+
         return redirect()->route('label.index');
     }
 
@@ -58,6 +62,7 @@ class LabelController extends Controller
             $label->delete();
             flash(__('views.label.flash.destroy.success'))->success();
         }
+
         return redirect()->route('label.index');
     }
 }

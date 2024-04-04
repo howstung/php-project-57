@@ -3,7 +3,6 @@
 namespace Crud;
 
 use App\Models\Label;
-use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -13,8 +12,8 @@ class LabelControllerTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private Label $label;
-    private Task $task;
 
     protected function setUp(): void
     {
@@ -22,7 +21,6 @@ class LabelControllerTest extends TestCase
 
         $this->user = User::factory()->create();
         $this->label = Label::factory()->create();
-        $this->task = Task::factory()->create();
     }
 
     public function testIndex(): void
@@ -79,7 +77,7 @@ class LabelControllerTest extends TestCase
         $this->actingAs($this->user);
         $data = [
             'name' => 'Label-TestUpdate-' . rand(),
-            'description' => 'Description-Label-TestUpdate-' . rand()
+            'description' => 'Description-Label-TestUpdate-' . rand(),
         ];
         $response = $this->patch(route('label.update', $this->label), $data);
         $response->assertRedirect();
@@ -91,7 +89,7 @@ class LabelControllerTest extends TestCase
         $oldLabel = $this->label->toArray();
         $data = [
             'name' => 'Label-TestUpdate-Guest-' . rand(),
-            'description' => 'Description-Label-TestUpdate-' . rand()
+            'description' => 'Description-Label-TestUpdate-' . rand(),
         ];
         $response = $this->patch(route('label.update', $this->label), $data);
         $this->assertDatabaseHas('labels', $oldLabel);

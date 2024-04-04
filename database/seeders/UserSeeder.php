@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             ['name' => 'Barbara Roo', 'email' => 'barbara'],
             ['name' => 'Erica Moen', 'email' => 'erica'],
             ['name' => 'Kevin Sipes', 'email' => 'kevin'],
-            ['name' => 'Bill Gates', 'email' => 'bill']
+            ['name' => 'Bill Gates', 'email' => 'bill'],
         ];
 
         foreach ($users as $user) {

@@ -28,6 +28,7 @@ class TaskController extends Controller
         foreach ($array as $item) {
             $select[$item[$key]] = $item[$value];
         }
+
         return $select;
     }
 
@@ -44,26 +45,36 @@ class TaskController extends Controller
         $task->labels()->saveMany($LabelsObjects);
     }
 
-    public function index(Request $request)
+    private function getSelected(Request $request): array
     {
-        $tasks = QueryBuilder::for(Task::class)
-            ->allowedFilters([
-                AllowedFilter::exact('status_id'),
-                AllowedFilter::exact('created_by_id'),
-                AllowedFilter::exact('assigned_to_id'),
-            ])
-            ->paginate(10);
-        //->get();
-
-        $authors = $executors = $this->makeSelectArray(User::all());
-        $statuses = $this->makeSelectArray(TaskStatus::all());
         $status_selected = $request->get('filter')['status_id'] ?? null;
         $author_selected = $request->get('filter')['created_by_id'] ?? null;
         $executor_selected = $request->get('filter')['assigned_to_id'] ?? null;
+        return [$status_selected, $author_selected, $executor_selected];
+    }
+
+    private function getPaginationData(mixed $tasks): array
+    {
         $perPage = $tasks->perPage();
         $total = $tasks->total();
         $lastPage = $tasks->lastPage();
         $currentPage = $tasks->currentPage() > $lastPage ? 1 : $tasks->currentPage();
+        return [$perPage, $total, $lastPage, $currentPage];
+    }
+
+    public function index(Request $request)
+    {
+        $tasks = QueryBuilder::for(Task::class)
+            ->allowedFilters([
+                AllowedFilter::exact('status_id'), AllowedFilter::exact('created_by_id'),
+                AllowedFilter::exact('assigned_to_id'),])
+            ->paginate(10);
+
+        $statuses = $this->makeSelectArray(TaskStatus::all());
+        $authors = $executors = $this->makeSelectArray(User::all());
+
+        [$status_selected, $author_selected, $executor_selected] = $this->getSelected($request);
+        [$perPage, $total, $lastPage, $currentPage] = $this->getPaginationData($tasks);
 
         return view('task.index', compact(
             'tasks',
@@ -74,9 +85,9 @@ class TaskController extends Controller
             'author_selected',
             'executor_selected',
             'perPage',
-            'currentPage',
             'total',
-            'lastPage'
+            'lastPage',
+            'currentPage',
         ));
     }
 
@@ -90,6 +101,7 @@ class TaskController extends Controller
 
         $model = 'task';
         $action = 'store';
+
         return view(
             'parts.form_wrapper_store_update',
             compact('task', 'model', 'action', 'users', 'statuses', 'labels')
@@ -100,7 +112,7 @@ class TaskController extends Controller
     {
         $task = new Task();
         $task->fill($request->validated());
-        $task->created_by_id = Auth::id();
+        $task->created_by_id = (int)Auth::id();
         $task->save();
 
         $this->saveLabels($request, $task);
@@ -112,6 +124,7 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         $labels = $task->labels();
+
         return view('task.show', compact('task', 'labels'));
     }
 
@@ -123,6 +136,7 @@ class TaskController extends Controller
 
         $model = 'task';
         $action = 'update';
+
         return view(
             'parts.form_wrapper_store_update',
             compact('task', 'model', 'action', 'users', 'statuses', 'labels')
@@ -141,8 +155,13 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        $task->delete();
-        flash(__('views.task.flash.destroy.success'))->success();
+        if ($task->author()->is(Auth::user())) {
+            $task->delete();
+            flash(__('views.task.flash.destroy.success'))->success();
+        } else {
+            flash(__('views.task.flash.destroy.fail'))->error();
+        }
+
         return redirect()->route('task.index');
     }
 }
