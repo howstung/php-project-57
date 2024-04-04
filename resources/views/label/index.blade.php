@@ -15,13 +15,13 @@
 
                 <table class="table table-striped table-bordered">
                     <thead>
-                    <tr>
-                        <th scope="col">{{ __('views.label.table.id') }}</th>
-                        <th scope="col">{{ __('views.label.table.name') }}</th>
-                        <th scope="col">{{ __('views.label.table.description') }}</th>
-                        <th scope="col">{{ __('views.label.table.created_at') }}</th>
+                    <tr class="tl-local">
+                        <td>{{ __('views.label.table.id') }}</td>
+                        <td>{{ __('views.label.table.name') }}</td>
+                        <td>{{ __('views.label.table.description') }}</td>
+                        <td>{{ __('views.label.table.created_at') }}</td>
                         @auth
-                            <th scope="col">{{ __('views.label.table.actions') }}</th>
+                            <td>{{ __('views.label.table.actions') }}</td>
                         @endauth
                     </tr>
                     </thead>
@@ -30,7 +30,7 @@
                     @foreach ($labels as $label)
 
                         <tr>
-                            <th scope="row">{{ $label->id }}</th>
+                            <td>{{ $label->id }}</td>
                             <td>{{ $label->name }}</td>
                             <td>{{ $label->description }}</td>
                             <td>{{ $label->getCreatedAt() }}</td>

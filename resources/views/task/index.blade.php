@@ -17,16 +17,16 @@
 
         <table class="table table-striped table-bordered">
             <thead>
-            <tr>
-                <th scope="col">{{ __('views.task.table.id') }}</th>
-                <th scope="col">{{ __('views.task.table.status') }}</th>
-                <th scope="col">{{ __('views.task.table.name') }}</th>
-                <th scope="col">{{ __('views.task.table.author') }}</th>
-                <th scope="col">{{ __('views.task.table.executor') }}</th>
-                <th scope="col">{{ __('views.task.table.created_at') }}</th>
+            <tr class="tl-local">
+                <td>{{ __('views.task.table.id') }}</td>
+                <td>{{ __('views.task.table.status') }}</td>
+                <td>{{ __('views.task.table.name') }}</td>
+                <td>{{ __('views.task.table.author') }}</td>
+                <td>{{ __('views.task.table.executor') }}</td>
+                <td>{{ __('views.task.table.created_at') }}</td>
 
                 @auth
-                    <th scope="col">{{ __('views.task.table.actions') }}</th>
+                    <td>{{ __('views.task.table.actions') }}</td>
                 @endauth
             </tr>
             </thead>
@@ -35,7 +35,7 @@
             @foreach ($tasks as $task)
 
                 <tr>
-                    <th scope="row">{{ $task->id }}</th>
+                    <td>{{ $task->id }}</td>
                     <td>{{ $task->status->name }}</td>
                     <td><a href="{{ route('task.show', $task->id) }}"
                            style="text-decoration: none">{{ $task->name }}</a></td>

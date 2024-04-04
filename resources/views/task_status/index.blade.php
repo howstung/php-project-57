@@ -15,12 +15,12 @@
 
                 <table class="table table-striped table-bordered">
                     <thead>
-                    <tr>
-                        <th scope="col">{{ __('views.task_status.table.id') }}</th>
-                        <th scope="col">{{ __('views.task_status.table.name') }}</th>
-                        <th scope="col">{{ __('views.task_status.table.created_at') }}</th>
+                    <tr class="tl-local">
+                        <td>{{ __('views.task_status.table.id') }}</td>
+                        <td>{{ __('views.task_status.table.name') }}</td>
+                        <td>{{ __('views.task_status.table.created_at') }}</td>
                         @auth
-                            <th scope="col">{{ __('views.task_status.table.actions') }}</th>
+                            <td>{{ __('views.task_status.table.actions') }}</td>
                         @endauth
                     </tr>
                     </thead>
@@ -29,7 +29,7 @@
                     @foreach ($task_statuses as $task_status)
 
                         <tr>
-                            <th scope="row">{{ $task_status->id }}</th>
+                            <td>{{ $task_status->id }}</td>
                             <td>{{ $task_status->name }}</td>
                             <td>{{ $task_status->getCreatedAt() }}</td>
 
