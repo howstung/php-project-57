@@ -46,6 +46,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+/*
+    //Not use
     public function tasksCreated(): HasMany
     {
         return $this->hasMany(Task::class, 'created_by_id', 'id');
@@ -54,5 +56,5 @@ class User extends Authenticatable
     public function tasksAssigned(): HasMany
     {
         return $this->hasMany(Task::class, 'assigned_to_id', 'id');
-    }
+    }*/
 }

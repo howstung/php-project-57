@@ -18,8 +18,11 @@ class LabelFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->unique()->word(),
             'description' => fake()->text(),
+
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

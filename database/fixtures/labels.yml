@@ -1,0 +1,32 @@
+- name: простая
+  description: Простая задача
+
+- name: средняя
+  description: Задача среднего уровня
+
+- name: сложная
+  description: Сложная задача
+
+- name: ошибка
+  description: Какая-то ошибка в коде или проблема с функциональностью
+
+- name: документация
+  description: Задача по документации
+
+- name: доработка
+  description: Новая фича, которую нужно запилить
+
+- name: Front-end
+  description: Задача для фронта
+
+- name: Back-end
+  description: Задача для бэка
+
+- name: Devops
+  description: Задача для девопса
+
+- name: Design
+  description: Задача для дизайнера
+
+- name: срочно
+  description: Cрочная задача

@@ -10,7 +10,6 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -30,19 +29,6 @@ class TaskController extends Controller
         }
 
         return $select;
-    }
-
-    private function saveLabels(Request $request, Task $task, string $action = 'save'): void
-    {
-        $labels = $request->toArray()['labels'] ?? [];
-        $LabelsObjects = [];
-        foreach ($labels as $label) {
-            $LabelsObjects[] = Label::findOrFail($label);
-        }
-        if ($action === 'update') {
-            DB::table('label_task')->where('task_id', '=', $task->id)->delete();
-        }
-        $task->labels()->saveMany($LabelsObjects);
     }
 
     private function getSelected(Request $request): array
@@ -66,7 +52,8 @@ class TaskController extends Controller
     {
         $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters([
-                AllowedFilter::exact('status_id'), AllowedFilter::exact('created_by_id'),
+                AllowedFilter::exact('status_id'),
+                AllowedFilter::exact('created_by_id'),
                 AllowedFilter::exact('assigned_to_id'),])
             ->paginate(10);
 
@@ -115,7 +102,9 @@ class TaskController extends Controller
         $task->created_by_id = (int)Auth::id();
         $task->save();
 
-        $this->saveLabels($request, $task);
+        $labels = $request->toArray()['labels'] ?? [];
+        $task->labels()->attach($labels);
+
         flash(__('flash.task.store'))->success();
 
         return redirect()->route('task.index');
@@ -146,7 +135,9 @@ class TaskController extends Controller
     public function update(TaskRequest $request, Task $task)
     {
         $task->update($request->validated());
-        $this->saveLabels($request, $task, 'update');
+
+        $labels = $request->toArray()['labels'] ?? [];
+        $task->labels()->sync($labels);
 
         flash(__('flash.task.update'))->success();
 
