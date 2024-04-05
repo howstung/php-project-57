@@ -27,6 +27,15 @@ seed:
 migrate:
 		php artisan migrate
 
+test-coverage-text:
+		XDEBUG_MODE=coverage php artisan test --coverage-text
+
+test-coverage-text-report:
+		XDEBUG_MODE=coverage php artisan test --coverage-clover ./build/logs/clover.xml
+
+test-coverage-html-report:
+		XDEBUG_MODE=coverage php artisan test --coverage-html ./test-reports/html
+
 github_actions:
 		php --version
 		composer validate

@@ -33,10 +33,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup PHP
+      - name: Setup PHP 8.1 with Xdebug
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "8.2"
+          coverage: xdebug
 
-      - name: Linter and Tests
+      - name: Run Checks, Linter and Tests
         run: make github_actions
+
+      - name: Publish test code coverage to CodeClimate
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          XDEBUG_MODE: coverage
+        with:
+          coverageCommand: make test-coverage-text-report
+          debug: true

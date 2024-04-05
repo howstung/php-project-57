@@ -20,7 +20,7 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->word(),
+            'name' => fake()->unique()->text(10),
             'description' => fake()->text,
             'status_id' => TaskStatus::inRandomOrder()->first(),
             'created_by_id' => User::inRandomOrder()->first(),

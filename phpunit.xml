@@ -23,7 +23,7 @@
         <exclude>
             <directory>app/Http/Controllers/Auth</directory>
             <directory>app/Http/Requests/Auth</directory>
-            <file>database/factories/UserFactory.php</file>
+            <!--<file>database/factories/UserFactory.php</file>-->
         </exclude>
     </source>
     <php>
