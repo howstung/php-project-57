@@ -14,8 +14,17 @@
     </testsuites>
     <source>
         <include>
-            <directory>app</directory>
+            <directory>app/Http/Controllers</directory>
+            <directory>app/Http/Requests</directory>
+            <directory>app/Models</directory>
+            <directory>app/Policies</directory>
+            <directory>database/factories/</directory>
         </include>
+        <exclude>
+            <directory>app/Http/Controllers/Auth</directory>
+            <directory>app/Http/Requests/Auth</directory>
+            <file>database/factories/UserFactory.php</file>
+        </exclude>
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>

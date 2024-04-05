@@ -3,73 +3,39 @@
 namespace Crud;
 
 use App\Models\TaskStatus;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Tests\BaseControllerCRUDTest;
 
-class TaskStatusControllerTest extends TestCase
+class TaskStatusControllerTest extends BaseControllerCRUDTest
 {
     use RefreshDatabase;
 
-    private User $user;
+    protected static string $modelName = 'task_status';
+    protected static string $dbName = 'task_statuses';
 
     private TaskStatus $taskStatus;
+    private TaskStatus $taskStatusNew;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->user = User::factory()->create();
         $this->taskStatus = TaskStatus::factory()->create();
+        $this->taskStatusNew = TaskStatus::factory()->make();
+
+        $this::$model = $this->taskStatus;
+        $this::$modelNew = $this->taskStatusNew;
     }
 
-    public function testIndex(): void
-    {
-        $response = $this->get(route('task_status.index'));
-        $response->assertStatus(200);
-    }
-
-    public function testCreate(): void
-    {
-        $this->actingAs($this->user);
-        $response = $this->get(route('task_status.create'));
-        $response->assertStatus(200);
-    }
-
-    public function testCreateNotAllowedForGuest(): void
-    {
-        $response = $this->get(route('task_status.create'));
-        $response->assertStatus(403);
-    }
-
-    public function testStore(): void
-    {
-        $this->actingAs($this->user);
-        $response = $this->post(route('task_status.store'), $this->taskStatus->toArray());
-        $this->assertDatabaseHas('task_statuses', $this->taskStatus->toArray());
-        $response->assertRedirect();
-    }
 
     public function testStoreNotAllowedForGuest(): void
     {
         $hadBeenCount = TaskStatus::count();
-        $response = $this->post(route('task_status.store'), $this->taskStatus->toArray());
+        $response = $this->post(route('task_status.store'), $this->taskStatusNew->toArray());
         $becameCount = TaskStatus::count();
-        $response->assertStatus(403);
+        $response->assertForbidden();
         $this->assertEquals($hadBeenCount, $becameCount);
-    }
-
-    public function testEdit(): void
-    {
-        $this->actingAs($this->user);
-        $response = $this->get(route('task_status.edit', $this->taskStatus));
-        $response->assertStatus(200);
-    }
-
-    public function testEditNotAllowedForGuest(): void
-    {
-        $response = $this->get(route('task_status.edit', $this->taskStatus));
-        $response->assertStatus(403);
+        $this->assertDatabaseMissing('task_statuses', $this->taskStatusNew->toArray());
     }
 
     public function testUpdate(): void
@@ -80,6 +46,7 @@ class TaskStatusControllerTest extends TestCase
         ];
         $response = $this->patch(route('task_status.update', $this->taskStatus), $data);
         $response->assertRedirect();
+        $response->assertSessionHasNoErrors();
         $this->assertDatabaseHas('task_statuses', $data);
     }
 
@@ -100,7 +67,17 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseHas('task_statuses', ['id' => $this->taskStatus->id]);
         $response = $this->delete(route('task_status.destroy', $this->taskStatus));
         $response->assertRedirect();
+        $response->assertSessionHasNoErrors();
         $this->assertDatabaseMissing('task_statuses', ['id' => $this->taskStatus->id]);
+    }
+
+    public function testDestroyNotAllowedWhenTasksAttached(): void
+    {
+        $this->actingAs($this->user);
+        $taskStatus = TaskStatus::factory()->hasTasks(1)->create();
+        $response = $this->delete(route('task_status.destroy', $taskStatus));
+        $this->assertDatabaseHas('task_statuses', ['id' => $taskStatus->id]);
+        $response->assertRedirect();
     }
 
     public function testDestroyNotAllowedForGuest(): void
