@@ -19,7 +19,7 @@
                         <a class="nav-link {{ request()->routeIs('task.*')?'active':null }}" aria-current="page" href="{{ route('task.index') }}">{{ __('main.menu.items.tasks') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('status.*')?'active':null }}" href="{{ route('task_status.index') }}">{{ __('main.menu.items.task_statuses') }}</a>
+                        <a class="nav-link {{ request()->routeIs('task_status.*')?'active':null }}" href="{{ route('task_status.index') }}">{{ __('main.menu.items.task_statuses') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('label.*')?'active':null }}" href="{{ route('label.index') }}">{{ __('main.menu.items.labels') }}</a>
