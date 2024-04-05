@@ -2,7 +2,7 @@
 
 return [
 
-    'title' => 'Task Manager',
+   /* 'title' => 'Task Manager',
 
     'menu' => [
         'items' => [
@@ -163,5 +163,5 @@ return [
                 'fail' => 'Failed to remove Task',
             ],
         ],
-    ],
+    ],*/
 ];

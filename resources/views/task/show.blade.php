@@ -11,16 +11,16 @@
         <div class="card">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <p><span class="p-task-item">{{ __('views.task.table.name') }}:</span> {{ $task->name }}</p>
+                    <p><span class="p-task-item">{{ __('views.table.name') }}:</span> {{ $task->name }}</p>
                 </li>
                 <li class="list-group-item">
-                    <p><span class="p-task-item">{{ __('views.task.table.status') }}:</span> {{ $task->status->name }}</p>
+                    <p><span class="p-task-item">{{ __('views.table.status') }}:</span> {{ $task->status->name }}</p>
                 </li>
                 <li class="list-group-item">
-                    <p><span class="p-task-item">{{ __('views.task.table.description') }}:</span> {{ $task->description }}</p>
+                    <p><span class="p-task-item">{{ __('views.table.description') }}:</span> {{ $task->description }}</p>
                 </li>
                 <li class="list-group-item">
-                    <p><span class="p-task-item">{{ __('views.task.table.labels') }}:</span>
+                    <p><span class="p-task-item">{{ __('views.table.labels') }}:</span>
                         @foreach ($task->labels as $label)
                             <span class="badge rounded-pill bg-primary" style="padding: 8px 12px 8px 8px; margin-top: 10px;">
                                 <svg style="width: 15px" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"

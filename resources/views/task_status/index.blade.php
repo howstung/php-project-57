@@ -16,11 +16,11 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr class="tl-local">
-                        <td>{{ __('views.task_status.table.id') }}</td>
-                        <td>{{ __('views.task_status.table.name') }}</td>
-                        <td>{{ __('views.task_status.table.created_at') }}</td>
+                        <td>{{ __('views.table.id') }}</td>
+                        <td>{{ __('views.table.name') }}</td>
+                        <td>{{ __('views.table.created_at') }}</td>
                         @auth
-                            <td>{{ __('views.task_status.table.actions') }}</td>
+                            <td>{{ __('views.table.actions') }}</td>
                         @endauth
                     </tr>
                     </thead>
@@ -35,7 +35,7 @@
 
                             @auth
                             <td>
-                                @include('parts.input_edit', ['title' => __('views.task_status.pages.index.edit'),'route' => route('task_status.edit', $task_status->id)])
+                                @include('parts.input_edit', ['title' => __('views.submit.edit'),'route' => route('task_status.edit', $task_status->id)])
 
                                 {{--@include('parts.modal_delete', ['model' => 'task_status'])--}}
                                 @include('parts.modal_delete_simple', ['model' => 'task_status'])

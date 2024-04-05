@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <h2 class="text-center text-3xl"><a href="{{ url('/') }}">{{ __('views.title') }}</a></h2>
+    <h2 class="text-center text-3xl"><a href="{{ url('/') }}">{{ __('main.title') }}</a></h2>
 
     <form method="POST" action="{{ route('register') }}">
         @csrf

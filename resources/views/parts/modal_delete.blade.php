@@ -1,7 +1,7 @@
 <a class="link-danger"
    style="text-decoration: none; cursor:pointer; display: inline-block; min-width: 96px"
    data-bs-toggle="modal" data-bs-target="#example{{ $$model->id }}Modal">
-    <i class="bi bi-trash-fill"></i> {{ __('views.'.$model.'.modal.delete') }}
+    <i class="bi bi-trash-fill"></i> {{ __('views.modal_delete.delete') }}
 </a>
 
 <!-- Modal -->
@@ -11,7 +11,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="example{{ $$model->id }}Modal{{ ucfirst($$model) }}">
-                    {{ __('views.'.$model.'.modal.sure') }}
+                    {{ __('views.modal_delete.sure') }}
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
@@ -21,11 +21,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    {{ __('views.'.$model.'.modal.cancel') }}
+                    {{ __('views.modal_delete.cancel') }}
                 </button>
 
                 {{ Form::model($$model, ['route' => ["$model.destroy", $$model], 'method'=>'DELETE'] ) }}
-                    <x-b.input-submit name="{{__('views.'.$model.'.modal.ok')}}" class="btn btn-success"/>
+                    <x-b.input-submit name="{{__('views.modal_delete.ok')}}" class="btn btn-success"/>
                 {{ Form::close() }}
 
             </div>

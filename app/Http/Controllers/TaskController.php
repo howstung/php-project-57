@@ -116,7 +116,7 @@ class TaskController extends Controller
         $task->save();
 
         $this->saveLabels($request, $task);
-        flash(__('views.task.flash.store'))->success();
+        flash(__('flash.task.store'))->success();
 
         return redirect()->route('task.index');
     }
@@ -148,7 +148,7 @@ class TaskController extends Controller
         $task->update($request->validated());
         $this->saveLabels($request, $task, 'update');
 
-        flash(__('views.task.flash.update'))->success();
+        flash(__('flash.task.update'))->success();
 
         return redirect()->route('task.index');
     }
@@ -157,9 +157,9 @@ class TaskController extends Controller
     {
         if ($task->author()->is(Auth::user())) {
             $task->delete();
-            flash(__('views.task.flash.destroy.success'))->success();
+            flash(__('flash.task.destroy.success'))->success();
         } else {
-            flash(__('views.task.flash.destroy.fail'))->error();
+            flash(__('flash.task.destroy.fail'))->error();
         }
 
         return redirect()->route('task.index');

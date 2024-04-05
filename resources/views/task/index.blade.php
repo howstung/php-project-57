@@ -18,15 +18,15 @@
         <table class="table table-striped table-bordered">
             <thead>
             <tr class="tl-local">
-                <td>{{ __('views.task.table.id') }}</td>
-                <td>{{ __('views.task.table.status') }}</td>
-                <td>{{ __('views.task.table.name') }}</td>
-                <td>{{ __('views.task.table.author') }}</td>
-                <td>{{ __('views.task.table.executor') }}</td>
-                <td>{{ __('views.task.table.created_at') }}</td>
+                <td>{{ __('views.table.id') }}</td>
+                <td>{{ __('views.table.status') }}</td>
+                <td>{{ __('views.table.name') }}</td>
+                <td>{{ __('views.table.author') }}</td>
+                <td>{{ __('views.table.executor') }}</td>
+                <td>{{ __('views.table.created_at') }}</td>
 
                 @auth
-                    <td>{{ __('views.task.table.actions') }}</td>
+                    <td>{{ __('views.table.actions') }}</td>
                 @endauth
             </tr>
             </thead>
@@ -47,7 +47,7 @@
                         <td style="min-width: 100px;">
 
                             @include('parts.input_edit', [
-                                'title' => __('views.task.pages.index.edit'),
+                                'title' => __('views.submit.edit'),
                                 'route' => route('task.edit', $task->id)
                                 ]
                             )

@@ -3,15 +3,15 @@
 <div class="row">
 
     <div class="col-md-3">
-        <x-b.input-select name="filter[status_id]" :options="$statuses" :default="$status_selected" placeholder="{{ __('views.task.table.status') }}"/>
+        <x-b.input-select name="filter[status_id]" :options="$statuses" :default="$status_selected" placeholder="{{ __('views.table.status') }}"/>
     </div>
 
     <div class="col-md-3">
-        <x-b.input-select name="filter[created_by_id]" :options="$authors" :default="$author_selected" placeholder="{{ __('views.task.table.author') }}"/>
+        <x-b.input-select name="filter[created_by_id]" :options="$authors" :default="$author_selected" placeholder="{{ __('views.table.author') }}"/>
     </div>
 
     <div class="col-md-3">
-        <x-b.input-select name="filter[assigned_to_id]" :options="$authors" :default="$executor_selected" placeholder="{{ __('views.task.table.executor') }}"/>
+        <x-b.input-select name="filter[assigned_to_id]" :options="$authors" :default="$executor_selected" placeholder="{{ __('views.table.executor') }}"/>
     </div>
 
     <div class="col-md-3">

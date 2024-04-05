@@ -16,12 +16,12 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                     <tr class="tl-local">
-                        <td>{{ __('views.label.table.id') }}</td>
-                        <td>{{ __('views.label.table.name') }}</td>
-                        <td>{{ __('views.label.table.description') }}</td>
-                        <td>{{ __('views.label.table.created_at') }}</td>
+                        <td>{{ __('views.table.id') }}</td>
+                        <td>{{ __('views.table.name') }}</td>
+                        <td>{{ __('views.table.description') }}</td>
+                        <td>{{ __('views.table.created_at') }}</td>
                         @auth
-                            <td>{{ __('views.label.table.actions') }}</td>
+                            <td>{{ __('views.table.actions') }}</td>
                         @endauth
                     </tr>
                     </thead>
@@ -37,7 +37,7 @@
 
                             @auth
                                 <td>
-                                    @include('parts.input_edit', ['title' => __('views.label.pages.index.edit'),'route' => route('label.edit', $label->id)])
+                                    @include('parts.input_edit', ['title' => __('views.submit.edit'),'route' => route('label.edit', $label->id)])
 
                                     {{--@include('parts.modal_delete', ['model' => 'label'])--}}
                                     @include('parts.modal_delete_simple', ['model' => 'label'])

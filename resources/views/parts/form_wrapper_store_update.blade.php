@@ -5,7 +5,7 @@
 
         {{ Form::model($$model, $action == 'store' ? ['route' => "$model.$action"] : ['route' => ["$model.$action", $$model], 'method' => 'PATCH']) }}
             @include("$model.form")
-            <x-b.input-submit name="{{__('views.'.$model.'.pages.'.$action.'.submit')}}" class="btn btn-secondary mt-3 mb-3"/>
+            <x-b.input-submit name="{{__('views.submit.'.$action)}}" class="btn btn-secondary mt-3 mb-3"/>
         {{ Form::close() }}
 
     </div>

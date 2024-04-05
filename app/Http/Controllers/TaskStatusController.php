@@ -34,7 +34,7 @@ class TaskStatusController extends Controller
         $task_status->fill($request->validated());
         $task_status->save();
 
-        flash(__('views.task_status.flash.store'))->success();
+        flash(__('flash.task_status.store'))->success();
 
         return redirect()->route('task_status.index');
     }
@@ -50,7 +50,7 @@ class TaskStatusController extends Controller
     public function update(TaskStatusRequest $request, TaskStatus $task_status)
     {
         $task_status->update($request->validated());
-        flash(__('views.task_status.flash.update'))->success();
+        flash(__('flash.task_status.update'))->success();
 
         return redirect()->route('task_status.index');
     }
@@ -59,9 +59,9 @@ class TaskStatusController extends Controller
     {
         if (count($task_status->tasks) == 0) {
             $task_status->delete();
-            flash(__('views.task_status.flash.destroy.success'))->success();
+            flash(__('flash.task_status.destroy.success'))->success();
         } else {
-            flash(__('views.task_status.flash.destroy.fail'))->error();
+            flash(__('flash.task_status.destroy.fail'))->error();
         }
 
         return redirect()->route('task_status.index');

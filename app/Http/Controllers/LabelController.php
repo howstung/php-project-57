@@ -33,7 +33,7 @@ class LabelController extends Controller
         $label = new Label();
         $label->fill($request->validated());
         $label->save();
-        flash(__('views.label.flash.store'))->success();
+        flash(__('flash.label.store'))->success();
 
         return redirect()->route('label.index');
     }
@@ -49,7 +49,7 @@ class LabelController extends Controller
     public function update(LabelRequest $request, Label $label)
     {
         $label->update($request->validated());
-        flash(__('views.label.flash.update'))->success();
+        flash(__('flash.label.update'))->success();
 
         return redirect()->route('label.index');
     }
@@ -57,10 +57,10 @@ class LabelController extends Controller
     public function destroy(Label $label)
     {
         if (count($label->tasks) > 0) {
-            flash(__('views.label.flash.destroy.fail'))->error();
+            flash(__('flash.label.destroy.fail'))->error();
         } else {
             $label->delete();
-            flash(__('views.label.flash.destroy.success'))->success();
+            flash(__('flash.label.destroy.success'))->success();
         }
 
         return redirect()->route('label.index');
